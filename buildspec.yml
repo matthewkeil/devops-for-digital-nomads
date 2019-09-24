@@ -1,0 +1,38 @@
+version: 0.2
+
+env:
+  parameter-store:
+    github_ssh_key: "GITHUB_SSH_KEY"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+    commands:
+      - "mkdir -p ~/.ssh"
+      - "echo \"$github_ssh_key\" > ~/.ssh/id_rsa"
+      - "chmod 600 ~/.ssh/id_rsa"
+      - "ssh-keygen -F github.com || ssh-keyscan github.com >>~/.ssh/known_hosts"
+      - "git config --global url.\"git@github.com:\".insteadOf \"https://github.com/\""
+      - "npm i"
+  pre_build:
+    commands:
+      - "npm run lint"
+  build:
+    commands:
+      - "npm run tsc"
+      - "npm run build:saml ${BRANCH}"
+      - "npm run test"
+  post_build:
+    commands:
+      - "rm -rf dist/**/*.spec.js"
+      - "aws cloudformation package --template-file dist/saml.yml --s3-bucket ${ARTIFACTS_BUCKET} --output-template-file cloudformation.yml"
+
+artifacts:
+  files:
+    - 'cloudformation.yml'
+    
+#cache:
+#  paths:
+#    - 'node_modules'
+#    -
