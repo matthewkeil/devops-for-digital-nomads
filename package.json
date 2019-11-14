@@ -24,8 +24,8 @@
   "scripts": {
     "ts": "node_modules/.bin/ts-node",
     "deploy": "npm run ts -- bin/deploy",
-    "lint": "node_modules/.bin/eslint",
-    "lint:core": "npm run lint -- --ext .ts aws/ bin/ --fix"
+    "lint": "node_modules/.bin/eslint --ext .ts",
+    "lint:core": "npm run lint -- aws/ bin/ --fix"
   },
   "keywords": [],
   "author": "",

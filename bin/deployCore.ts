@@ -1,9 +1,7 @@
 require("dotenv").config();
 
-import CF, { Fn } from "cloudform";
+import CF from "cloudform";
 import { handleStackCreateAndUpdate } from "./aws";
-import { pascalCaseDomainName } from "./utils";
-import { config } from "../config";
 import { buildCoreTemplate } from "../aws/core";
 
 export const deployCore = async () => {

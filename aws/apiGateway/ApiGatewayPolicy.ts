@@ -1,6 +1,4 @@
 import { IAM, Fn } from "cloudform";
-import { pascalCaseDomainName } from "../../bin";
-import { config } from "../../config";
 
 export const ApiGatewayPolicy = new IAM.Policy({
     Roles: [Fn.Ref("ApiGatewayRole")],

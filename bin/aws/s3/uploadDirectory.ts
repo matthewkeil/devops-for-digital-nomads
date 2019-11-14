@@ -22,8 +22,8 @@ export const uploadDirectory = async ({
         uploadPath === "/" || !uploadPath
             ? "/"
             : uploadPath.startsWith("/")
-                ? uploadPath
-                : "/".concat(uploadPath);
+            ? uploadPath
+            : "/".concat(uploadPath);
 
     await walkDirectory({ Bucket, path, keyBase });
 

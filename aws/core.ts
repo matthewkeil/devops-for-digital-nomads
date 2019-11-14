@@ -26,13 +26,15 @@ export const buildCoreTemplate = async (deployCert: boolean) => {
                 Description: `HostedZoneId for ${config.ROOT_DOMAIN}`,
                 Value: Fn.Ref("HostedZone"),
                 Export: {
-                    Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}HostedZone`
+                    Name: `${pascalCaseDomainName(
+                        config.ROOT_DOMAIN
+                    )}HostedZone`
                 }
             }
         }
     };
 
-    if (!await apiGatewayAccountExists()) {
+    if (!(await apiGatewayAccountExists())) {
         (template.Resources as any).ApiGatewayAccount = ApiGatewayAccount;
         (template.Resources as any).ApiGatewayPolicy = ApiGatewayPolicy;
         (template.Resources as any).ApiGatewayRole = ApiGatewayRole;

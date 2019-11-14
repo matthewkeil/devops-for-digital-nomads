@@ -13,7 +13,7 @@ import {
     getLocalGitBranch,
     getDomaintName,
     pascalCaseDomainName,
-    getAbsolutePathFromRootRelativePath,
+    getAbsolutePathFromRootRelativePath
 } from "./utils";
 import { config } from "../config";
 import { clientTemplate } from "../aws/client";
@@ -35,7 +35,9 @@ export const deployClient = async () => {
     ) {
         const command = getClientBuildCommand();
         console.log(`rebuilding client repo using "${command}"`);
-        buildPromise = exec(`cd client && export NODE_ENV=production && ${command}`);
+        buildPromise = exec(
+            `cd client && export NODE_ENV=production && ${command}`
+        );
     }
 
     // make sure bucket exists, if not build stack with bucket and routing
