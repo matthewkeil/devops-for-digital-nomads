@@ -5,7 +5,7 @@ import { createStack } from "./createStack";
 import { updateStack } from "./updateStack";
 import { deleteStack } from "./deleteStack";
 import { getStackEvents } from "./getStackEvents";
-import { createCertRecordSet } from "../route53/createCertRecordSet";
+import { createCertRecordSet } from "../route53";
 
 export const handleStackCreateAndUpdate = async (
     params:

@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { config } from "../../../config";
+import { config } from "../../config";
 
 const apiGateway = new AWS.APIGateway(config.AWS_SERVICE_CONFIG);
 const iam = new AWS.IAM(config.AWS_SERVICE_CONFIG);
