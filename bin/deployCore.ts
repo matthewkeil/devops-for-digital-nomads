@@ -1,7 +1,8 @@
 require("dotenv").config();
 
 import CF, { Fn } from "cloudform";
-import { handleStackCreateAndUpdate, pascalCaseDomainName } from "./utils";
+import { handleStackCreateAndUpdate } from "./aws";
+import { pascalCaseDomainName } from "./utils";
 import { config } from "../config";
 import { coreTemplate } from "../aws/core";
 import { Certificate } from "../aws/certificateManager/Certificate";

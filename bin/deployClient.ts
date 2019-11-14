@@ -2,16 +2,18 @@ require("dotenv").config();
 
 import fs from "fs";
 import {
-    exec,
     createCacheInvalidation,
-    getLocalGitBranch,
-    getDomaintName,
     bucketExists,
     emptyBucket,
     handleStackCreateAndUpdate,
+    uploadDirectory
+} from "./aws";
+import {
+    exec,
+    getLocalGitBranch,
+    getDomaintName,
     pascalCaseDomainName,
     getAbsolutePathFromRootRelativePath,
-    uploadDirectory
 } from "./utils";
 import { config } from "../config";
 import { clientTemplate } from "../aws/client";

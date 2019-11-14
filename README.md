@@ -1,22 +1,48 @@
-# matthewkeil.com
+# Nomad-Devops
+So you're building this great project... Now to get it online securely, cheaply, easily and quickly.  Not as easy as it sounds once you start looking at hosting options and scalability.  How about getting an SSL certificate to serve your page over https? How about making sure there is low latency around the world? Edge caching, much? Yet more setup to handle. For low traffic websites it can be very expensive to host on wordpress, heroku or a dedicated server with a dedicated domain name option.  When first starting, and in many other cases, that is WAY overkill on the wallet.  What about deploying a new version to show a client without a huge amount of headache or funky url? Professionalism is key in obtaining and retaining the best clients.  Afterall you strive to be the best freelancer you can, right?
 
-## Project setup
-AWS will be used for this project and there are two ways to provide credentials for use by this repo.  First is to setup for AWS config file using the instructions found [here]().  The second, good when using credentials for many different accounts will be to setup a `.env` file with the following two keys.  The `.env` is not tracked by git so it will not get uploaded to the remote repo.  Place your accessKey and secretAccessKey between the parenthesis `...='value goes here'`.  Make sure the there are not spaces around the `=` as `AWS_ACCESS_KEY_ID = 'kjdhg21hjnegh'` will throw an error.
-```
-AWS_ACCESS_KEY_ID=''
-AWS_SECRET_ACCESS_KEY=''
-```
+This is why understanding ops and devops becomes super critical.  Getting online quickly without the headaches by using `npm run deploy` to stand a stack or `npm run deploy devops` to stand a pipeline that deploys each commit to that same stack.  Thats what the big guys do.  Now you can too.  How about approaching a client and saying hey check out your new feature on...
 
-Next you will need to enter the following information into the CONFIG.ts file.
+`https://new-feature-branch.matthewkeil.com`
+
+Slick... Smooth... Sexy... awww yea!
+
+And the price tag for that sexiness? $0.90\month for hosting the domain with less than 100,000 requests a month accross all subdomains. [Yes, really.](https://aws.amazon.com/route53/pricing/)  For the front-end hosting all you pay for is storage, data transfer and edge caching. Unless you get to a ton of traffic you will most likely be under the free tier. [Yes, really.](https://aws.amazon.com/s3/pricing/)  How about your backend?  Ahh, the joys of serverless.  It's why there is a tone of buzz and yes, that is probably going to be free for you also if you are low on traffic (less than 1,000,000 request/month).  [Yes, really.](https://aws.amazon.com/lambda/pricing/) and more of [Yes, really.](https://aws.amazon.com/api-gateway/pricing/). And the cost for a devops pipeline is $1/month after the first month so if a branch lasts less than that its free.  [Yes, really.](https://aws.amazon.com/codepipeline/pricing/). And what about that build server to do your pipeline builds? Well you guessed it. If you are doing less than 100min/month of build thats free too. [Yes, really.](https://aws.amazon.com/codebuild/pricing)
+
+Everyone loves FREE. As Oprah says... **You get free hosting! You get free hosting! And you get free hosting! Everyone gets free hosting....**
+
+---
+## Project Configuration
+This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  
+
+Configuration is quite straighforward.  Open the `config.ts` file and fill out the following 4 fields.  Currently nomad-devops is only compatable with Github.
 ```typescript
 export const CONFIG = {
     ROOT_DOMAIN: 'example.com', // this should be the  naked domain without the 'www'
-    OWNER: 'gitHubAccountName',
-    REPO: 'gitHubRepoName',
+    OWNER: 'gitHubAccountName', // this is the name of the owner of the repo ie 'www.github.com/ownerName'
+    REPO: 'gitHubRepoName', // this is the repo name ie 'www.github.com/ownerName/repoName'
     REGION: 'us-east-1' // or region you prefer to deploy to.
 }
 ```
 
+## Credentials Setup
+Nomad-Devops makes use of the AWS CLI, you can get instructions to [install it here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).  After that is instaleld you can find details to configure it by following [this link](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). We will generate a set of AWS access tokens following the instructions listed [on this page](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html), under the heading **Managing Access Keys (Console)**.  We also need to create a [GitHub Personal Access Token](https://github.com/settings/tokens), to allow the deploy script to access your repos to validate branch names. You can find the OAUTH under GitHub profile->Settings->Developer Settings->[Personal Access Tokens](https://github.com/settings/tokens). Click Generate New Token and name it something related to AWS so you know what its for.  Then set the scope to only allow 'repo' and 'admin:repo_hook'. These are private keys and should be treated like all passwords.  To **protect** them we are going to create a `.env` file to store our **private information**, with our private key configuration.  Follow the directions below and you will be able to fill out the following values. These are your **private passwords**. The `.gitignore` is set to not commit the `.env` but its worth explicitly stating these potentially have full access to your accounts, so protect them as such. Do not commit them. As you create the keys add them to the `.env` file as shown below.  They are usually only shown once on-screen so note them before you close the respective windows they are shown on.
+
+NOTE: no spaces may be included in any of the keys, so `AWS_ACCESS_KEY_ID = 'xxxxxxxxxxxxxxxxxxxx'` throws an error. 
+
+```bash
+AWS_ACCESS_KEY_ID='xxxxxxxxxxxxxxxxxxxx'
+AWS_SECRET_ACCESS_KEY='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+GITHUB_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxx'
+```
+
+When using AWS there are actually many ways to provide credentials to the sdk. Credentials can be located in the `$HOME/.aws/credentials` file or in the `.env` file like implemented in this repo. If you only work with one AWS account it can be convenient to put your credentials in the `$HOME/.aws/credentials` file and you can find information [here](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/loading-node-credentials-shared.html) on how to set that up.  If you work with many accounts, as digital nomads can have many clients, it can be easier to put the tokens for your client account in its respective repo so that those are used.  The AWS-SDK is setup to use whatever credentials are used by the calling function if present, and if none are supplied the sdk falls back to using the credentials found in the `$HOME/.aws/credentials` file. Nomad-Devops implements sdk calls like the example below such that it will use the values found in your `.env` if they are present.  If not the value will be `undefined` and the sdk will fallback to use the `[default]` values found in your `$HOME/.aws/credentials`.
+```typescript
+const CF = new AWS.CloudFormation({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+```
 ---
 
 ## Set-up of Hosted Zone and SSL certificate for https hosting

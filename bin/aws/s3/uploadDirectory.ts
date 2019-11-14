@@ -1,4 +1,4 @@
-import { getAbsolutePathFromRootRelativePath } from "../helpers";
+import { getAbsolutePathFromRootRelativePath } from "../../utils/helpers";
 import { walkDirectory } from "./walkDirectory";
 
 interface UploadDirectoryParams {
@@ -22,8 +22,8 @@ export const uploadDirectory = async ({
         uploadPath === "/" || !uploadPath
             ? "/"
             : uploadPath.startsWith("/")
-            ? uploadPath
-            : "/".concat(uploadPath);
+                ? uploadPath
+                : "/".concat(uploadPath);
 
     await walkDirectory({ Bucket, path, keyBase });
 
