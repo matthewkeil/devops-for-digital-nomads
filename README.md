@@ -1,43 +1,29 @@
-# Devops for Digital Nomads and Start-Ups
+# matthewkeil.com
 
-## Setup
-We are going to create a `.env` file with our configuration.  Follow the directions below and you will be able to fill out the following values. These are your private passwords. The `.gitignore` is set to not commit the `.env` but its worth explicitly stating these potentially have full access to your accounts, so protect them as such. Do not store commit them to GitHub or be all willy nilly with them silly.  As you create them add them to the `.env` file as shown below.  They are usually only shown once on-screen so note them before you close the respective windows they are shown on.
-```bash
-AWS_ACCESS_KEY_ID='xxxxxxxxxxxxxxxxxxxx'
-AWS_SECRET_ACCESS_KEY='xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-GITHUB_ACCESS_TOKEN='xxxxxxxxxxxxxxxxxxxx'
-GITHUB_SSH_KEYS='xxxxxxxxxxxxxxxxxxxx'
-REGION='us-east-1'
+## Project setup
+AWS will be used for this project and there are two ways to provide credentials for use by this repo.  First is to setup for AWS config file using the instructions found [here]().  The second, good when using credentials for many different accounts will be to setup a `.env` file with the following two keys.  The `.env` is not tracked by git so it will not get uploaded to the remote repo.  Place your accessKey and secretAccessKey between the parenthesis `...='value goes here'`.  Make sure the there are not spaces around the `=` as `AWS_ACCESS_KEY_ID = 'kjdhg21hjnegh'` will throw an error.
 ```
-Devops for Digiat Nomads and Startups makes use of the AWS CLI, you can get instructions to [install it here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).  After that is instaleld you can find details to configure it by following [this link](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html).
-
-We need to create a [GitHub Personal Access Token](https://github.com/settings/tokens), to allow AWS to access webhooks for our devops pipeline. You can find the OAUTH under GitHub profile->Settings->Developer Settings->[Personal Access Tokens](https://github.com/settings/tokens). Click Generate New Token and name it something related to AWS so you know what its for.  Then set the scope to only allow 'repo' and 'admin:repo_hook'.
-
-Next [make SSH keys](https://help.github.com/en/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) for the build process to download the code and then [add them to your account](https://help.github.com/en/articles/adding-a-new-ssh-key-to-your-github-account).
-
-
-## Install packages
-
-```
-npm install
+AWS_ACCESS_KEY_ID=''
+AWS_SECRET_ACCESS_KEY=''
 ```
 
-## Lambda Environtment Variables
-
-The following environment variables are available to all lambda functions.  They can be accessed as normal on `process.env`.
-
+Next you will need to enter the following information into the CONFIG.ts file.
 ```typescript
-process.env.REGION
-process.env.DYNAMO_TABLE_NAME
-process.env.DB_NAME
-process.env.DB_CLUSTER_ADDRESS
-process.env.DB_PORT
-process.env.DB_USERNAME
-process.env.DB_PASSWORD
+export const CONFIG = {
+    ROOT_DOMAIN: 'example.com', // this should be the  naked domain without the 'www'
+    OWNER: 'gitHubAccountName',
+    REPO: 'gitHubRepoName',
+    REGION: 'us-east-1' // or region you prefer to deploy to.
+}
 ```
 
-## Build and Deploy
+---
 
-```
-npm run deploy
-```
+## Set-up of Hosted Zone and SSL certificate for https hosting
+There are a couple of steps to setting up the DNS records and the SSL certificate that will cover your website.  It is mostly automated however there are a few steps you will need to manually complete during the process.
+
+1) `npm run deploy nocert` should be run from the root of the repo.  This will deploy the HostedZone so that you can update your domain provider (ie GoDaddy or domains.google.com) to look to amazon's Route53 service. Once the stack is created go to the Route53 page and click on hosted zones. Then click on the one with the name that you set in the `CONFIG.ROOT_DOMAIN`.  Find the four name servers listed in the value field, next the `NS` type record.  Make a note of these four values as you will need to enter them into the name server field of your domain hosting company.
+
+2) Go to the website where you registerd your domain and look for the name server configuration.  Enter those four name servers from above as the name servers for your domain. Before you will be able to get an SSL cert your name servers need to be configured and it may take up to 48 hours for the changes to occur with some providers.
+
+3) `npm run deploy` from the root of the repo. This will start the process of getting an SSL certificate by updating the root stack you deployed above.  Once you run this command and the update begins you will need to go to the Cloudformaion page on the Aws console and find the 

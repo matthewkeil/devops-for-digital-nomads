@@ -4,7 +4,7 @@ let build;
 let nodemon;
 
 const firstRun = cp.exec(
-    "npm run clean:build && npm run build",
+    "npm run build:dev",
     (err, _, stderr) => {
         if (err) {
             console.error(stderr);

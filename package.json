@@ -1,96 +1,33 @@
 {
-  "name": "devops-for-digital-nomads",
+  "name": "matthewkeil.com",
   "version": "1.0.0",
-  "description": "Full Ops and Devops platform targeted at digital nomads and startups. Utilizes AWS platform and CloudFormation to set up everything with IaaC",
-  "scripts": {
-    "start": "npm run db:start & npm run dev",
-    "dev": "node bin/dev.js",
-    "clean:build": "rm -rf dist/certs && rm -rf dist/db && rm -rf dist/handlers && rm -rf dist/utils && rm -rf dist/app.j*",
-    "clean:dist": "rm -rf dist",
-    "build": "node_modules/.bin/tsc",
-    "build:dev": "npm run clean:build && npm run build",
-    "build:prod": "npm run clean:dist && npm run build && npm run install:prod",
-    "build:watch": "node_modules/.bin/tsc --watch",
-    "build:saml": "npm run ts-node -- bin/buildSaml",
-    "db:start": "/usr/local/opt/mysql@5.6/bin/mysql.server start",
-    "db:stop": "/usr/local/opt/mysql@5.6/bin/mysql.server stop",
-    "db:restart": "/usr/local/opt/mysql@5.6/bin/mysql.server restart",
-    "install:prod": "cp package.json dist/package.json && cd dist && npm install --only=prod && rm package-lock.json",
-    "kill:build": "$(kill -15 $(ps aux | grep '[n]ode_modules/.bin/tsc' | awk '{print $2}') 2> /dev/null & exit 0)",
-    "kill:nodemon": "$(kill -15 $(ps aux | grep '[n]odemon' | awk '{print $2}') 2> /dev/null & exit 0)",
-    "kill:3001": "lsof -i tcp:3001 | grep LISTEN .... awk '{print $2}' | xargs kill -15",
-    "kill:dev": "npm run kill:build && npm run kill:nodemon && kill:3001",
-    "nodemon": "node_modules/.bin/nodemon dist/app.js",
-    "deploy": "npm run ts-node -- bin/deploy",
-    "ts-node": "node_modules/.bin/ts-node",
-    "lint": "node_modules/.bin/eslint --ext .ts src/ --fix",
-    "lint:all": "node_modules/.bin/eslint --ext .ts src/ aws/ bin/ --fix",
-    "test": "node_modules/.bin/jest --passWithNoTests"
-  },
-  "nodemonConfig": {
-    "delay": 1000,
-    "watch": "dist/*",
-    "exec": "node"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": ""
-    }
-  },
-  "lint-staged": {
-    "*.ts": [
-      "npm run lint",
-      "git add"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/matthewkeil/devops-for-digital-nomads.git"
-  },
-  "author": "Matthew Keil",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/matthewkeil/devops-for-digital-nomads/issues"
-  },
-  "homepage": "https://github.com/matthewkeil/devops-for-digital-nomads#readme",
-  "dependencies": {
-    "aws-sdk": "^2.474.0",
-    "compression": "^1.7.4",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "helmet": "^3.20.0",
-    "morgan": "^1.9.1",
-    "mysql": "^2.17.1",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.18"
-  },
+  "description": "## Project setup ``` npm install ```",
+  "main": "index.js",
   "devDependencies": {
-    "@octokit/rest": "^16.28.7",
-    "@types/aws-lambda": "^8.10.27",
-    "@types/compression": "^1.0.0",
-    "@types/cors": "^2.8.5",
-    "@types/express": "^4.17.0",
-    "@types/helmet": "0.0.43",
-    "@types/jest": "^24.0.15",
-    "@types/morgan": "^1.7.37",
-    "@types/node": "^11.13.4",
-    "@typescript-eslint/eslint-plugin": "^1.11.0",
-    "@typescript-eslint/parser": "^1.11.0",
-    "cloudform": "^4.0.0-alpha.0",
-    "debug": "^4.1.1",
-    "dotenv": "^8.0.0",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.4",
-    "jest": "^24.8.0",
+    "@octokit/rest": "^16.34.1",
+    "@types/node": "^12.12.7",
+    "@typescript-eslint/eslint-plugin": "^2.6.1",
+    "@typescript-eslint/parser": "^2.6.1",
+    "aws-sdk": "^2.568.0",
+    "cloudform": "^4.1.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "json2yaml": "^1.1.0",
-    "lint-staged": "^9.2.3",
-    "nodemon": "^1.19.2",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.2"
-  }
+    "mime-types": "^2.1.24",
+    "prettier": "^1.17.1",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.7.2"
+  },
+  "dependencies": {},
+  "scripts": {
+    "ts": "node_modules/.bin/ts-node",
+    "deploy": "npm run ts -- bin/deploy",
+    "lint": "node_modules/.bin/eslint",
+    "lint:core": "npm run lint -- --ext .ts aws/ bin/ --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

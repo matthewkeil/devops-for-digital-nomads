@@ -1,10 +1,4 @@
 {
-  "include": [
-    "src/**/*"
-  ],
-  "exlude": [
-    "no_compile/**/*"
-  ],
   "compilerOptions": {
     "lib": [
       "esnext",
@@ -15,13 +9,11 @@
     "target": "es6",
     "module": "commonjs",
     "strict": false,
-    "sourceMap": true,
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "outDir": "./dist",
     "types": [
       "node"
     ],
