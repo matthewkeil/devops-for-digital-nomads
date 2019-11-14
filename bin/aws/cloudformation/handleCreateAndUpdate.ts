@@ -28,8 +28,9 @@ export const handleStackCreateAndUpdate = async (
         const fullList = await getStackEvents({ StackName: params.StackName });
 
         if (events.length !== fullList.length) {
-            console.table(fullList);
+            const currentLength = events.length;
             events = fullList;
+            console.table(fullList.slice(currentLength));
         }
 
         const certCreationEvent = fullList.find(event => {
@@ -49,19 +50,11 @@ export const handleStackCreateAndUpdate = async (
                 dnsRecord[4].length - 1
             );
 
-            console.log(
-                `found request for SSL RecordSet creation at\n${recordSetName}\nfor validation by\n${recordSetValue}\n`
-            );
-
             await createCertRecordSet({
                 StackName: params.StackName,
                 recordSetName,
                 recordSetValue
             });
-
-            console.log(
-                "successfully created SSL RecordSet for DNS validation"
-            );
         }
     }, 2000);
 

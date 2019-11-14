@@ -4,7 +4,7 @@ import { config } from "../../config";
 
 export const ApiGatewayPolicy = new IAM.Policy({
     Roles: [Fn.Ref("ApiGatewayRole")],
-    PolicyName: `${pascalCaseDomainName(config.ROOT_DOMAIN)}ApiGatewayPolicy`,
+    PolicyName: `ApiGatewayPolicy`,
     PolicyDocument: {
         Version: "2012-10-17",
         Statement: [

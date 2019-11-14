@@ -16,6 +16,7 @@ And the price tag for that sexiness? $0.90\month for hosting the domain with les
 Everyone loves FREE. As Oprah says... **You get free hosting! You get free hosting! And you get free hosting! Everyone gets free hosting....**
 
 ---
+
 ## Project Configuration
 This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  
 
@@ -23,8 +24,8 @@ Configuration is quite straighforward.  Open the `config.ts` file and fill out t
 ```typescript
 export const CONFIG = {
     ROOT_DOMAIN: 'example.com', // this should be the  naked domain without the 'www'
-    OWNER: 'gitHubAccountName', // this is the name of the owner of the repo ie 'www.github.com/ownerName'
-    REPO: 'gitHubRepoName', // this is the repo name ie 'www.github.com/ownerName/repoName'
+    OWNER: 'gitHubAccountName', // this is the name of the repo owner: 'www.github.com/ownerName'
+    REPO: 'gitHubRepoName', // this is the repo name: 'www.github.com/ownerName/repoName'
     REGION: 'us-east-1' // or region you prefer to deploy to.
 }
 ```
@@ -32,7 +33,7 @@ export const CONFIG = {
 ## Credentials Setup
 As you create the keys that are discusse in this section add them to the `.env` file as shown below.  They are usually only shown once on-screen so note them before you close the respective windows they are shown on. Nomad-Devops makes use of the AWS CLI, you can get instructions to [install it here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html).  After that is installed you can find details to configure it by following [this link](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html). You will need to generate a set of AWS access tokens following the instructions listed [on this page](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html), under the heading **Managing Access Keys (Console)**.  We also need to create a [GitHub Personal Access Token](https://github.com/settings/tokens), to allow the deploy script to access your repos to validate branch names. You can find the OAUTH under GitHub profile->Settings->Developer Settings->[Personal Access Tokens](https://github.com/settings/tokens). Click Generate New Token and name it something related to AWS so you know what its for.  Then set the scope to only allow 'repo' and 'admin:repo_hook'.
 
-These are private keys and should be treated like all passwords.  To **protect** them we are going to create a `.env` file to store our **private information**.  Follow the directions below and you will be able to fill out the following values. These are your **private passwords**. The `.gitignore` is set to not commit the `.env` but its worth explicitly stating these potentially have full access to your accounts, so protect them as such. Do not commit them.
+These are private keys and should be treated like all passwords.  To **protect** them we are going to create a `.env` file to store our **private information**.  Follow the directions below and you will be able to fill out the following values. These are your **private passwords**. The `.gitignore` is set to not commit the `.env` but its worth explicitly stating these potentially have full access to your accounts, so protect them as such. **Do not commit them.**
 
 NOTE: no spaces may be included in any of the keys, so `AWS_ACCESS_KEY_ID = 'xxxxxxxxxxxxxxxxxxxx'` throws an error. 
 
