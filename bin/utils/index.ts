@@ -7,3 +7,4 @@ export * from "./getLocalGitBranch";
 export * from "./getStackName";
 export * from "./capitalizeFirstLetter";
 export * from "./convertPathToAwsParamStyle";
+export * from "./getArtifactsBucketName";

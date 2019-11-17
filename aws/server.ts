@@ -21,7 +21,7 @@ interface TemplateParams {
     StackName: string;
 }
 
-export default ({ branch, StackName }: TemplateParams) => {
+export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
     const template = {
         AWSTemplateFormatVersion: "2010-09-09",
         Description: StackName,

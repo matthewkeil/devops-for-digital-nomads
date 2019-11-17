@@ -1,5 +1,6 @@
 import { deployCore } from "./deployCore";
 import { deployClient } from "./deployClient";
+import { deployServer } from "./deployServer";
 
 /**
  *
@@ -29,6 +30,7 @@ import { deployClient } from "./deployClient";
             await deployClient();
             break;
         case "server":
+            await deployServer();
             break;
         default:
             const message = `${stack} is not a valid stack name`;
