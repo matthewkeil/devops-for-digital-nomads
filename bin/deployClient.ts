@@ -28,10 +28,11 @@ export const deployClient = async () => {
         rebuild = true;
     }
 
+    const clientDistLocation = "client/dist";
     let buildPromise: Promise<void | string> = Promise.resolve();
     if (
         rebuild ||
-        !fs.existsSync(getAbsolutePathFromRootRelativePath("client/dist"))
+        !fs.existsSync(getAbsolutePathFromRootRelativePath(clientDistLocation))
     ) {
         const command = getClientBuildCommand();
         console.log(`rebuilding client repo using "${command}"`);
@@ -64,7 +65,7 @@ export const deployClient = async () => {
 
     await Promise.all([bucketPromise, buildPromise]);
 
-    await uploadDirectory({ Bucket, localPath: "client/dist" });
+    await uploadDirectory({ Bucket, localPath: clientDistLocation });
 
     await createCacheInvalidation({ Bucket });
 };

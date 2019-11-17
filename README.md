@@ -1,9 +1,9 @@
 # Nomad-Devops
-So you're building this great project... Now to get it online securely, cheaply, easily and quickly.  Not as easy as it sounds once you start looking at hosting options and scalability.  How about getting an SSL certificate to serve your page over https? How about making sure there is low latency around the world? Edge caching, much and yet more setup to handle.
+So you're building this great project... Now to get it online securely, cheaply, easily and quickly.  Not as easy as it sounds once you start looking at hosting options and scalability.  How about getting an SSL certificate to serve your page over https? How about making sure there is low latency around the world? Edge caching much, and yet more setup to handle.
 
 For low traffic websites it can be very expensive to host on wordpress, heroku or a dedicated server with a dedicated domain name option.  When first starting, and in many other cases, that is WAY overkill on the wallet.  What about deploying a new version to show a client without a huge amount of headache or funky url? Professionalism is key in obtaining and retaining the best clients.  Afterall you strive to be the best freelancer you can, right?
 
-This is where utilizing others understanding of ops and devops becomes super critical. [You are welcome, and can ask me questions if you need a hand.](https://www.linkedin.com/in/matthew-keil/) Getting online quickly without the headaches by simply using `npm run deploy` to stand a stack, or `npm run deploy devops` to stand a pipeline that deploys each commit to that same stack. Thats what the big guys do and now you can too. Deploying a feature branch is as easy as...
+This is where utilizing an understanding of ops and devops becomes super critical. [You are welcome!! :) Feel free to ask me questions if you need a hand.](https://www.linkedin.com/in/matthew-keil/) Getting online quickly without the headaches by simply using `npm run deploy` to stand a stack, or `npm run deploy devops` to stand a pipeline that deploys each commit to that same stack. Thats what the big guys do and now you can too. Deploying a feature branch is as easy as...
 ```
 git branch -b new-feature
 git commit -m "shiny new feature"
@@ -16,7 +16,7 @@ And the price tag for that sexiness? $0.90\month for hosting the domain with les
 Everyone loves FREE. As Oprah says... **You get free hosting! You get free hosting! And you get free hosting! Everyone gets free hosting....**
 
 ## Compatability
-This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  The client folder is meant for client-side code and is specifically optimized for the major javascitpt frameworks. However if you are building your code with the `npm run build` command and the static files, that get uploaded after your build end up in the `client/dist` folder then this repo will work as is.  When deploying the client code all files in the `client/dist` folder will get uploaded to Amazon S3 and the infrastructure will fallback to serving `index.html` in the event of a 404-NOT_FOUND (which is what the frameworks need for routing).
+This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  The client folder is meant for client-side code and is specifically optimized for the major javascitpt frameworks. However if you are building your code with the `npm run build` command, and the static files that get uploaded after your build end up in the `client/dist` folder then this repo will work as is.  When deploying the client code all files in the `client/dist` folder will get uploaded to Amazon S3 and the infrastructure will fallback to serving `index.html` in the event of a 404-NOT_FOUND (which is what the frameworks need for routing).
 
 ---
 

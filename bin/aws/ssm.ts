@@ -34,5 +34,3 @@ export const storeOauthToken = async () => {
     //     Type: 'SecureString'
     // }).promise();
 }
-
-storeOauthToken().then(console.log)
