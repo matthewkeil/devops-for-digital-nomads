@@ -16,9 +16,9 @@ const CF = new AWS.CloudFormation(AWS_SERVICE_CONFIG);
 const S3 = new AWS.S3(AWS_SERVICE_CONFIG);
 
 export const config = {
-    ROOT_DOMAIN: '',
-    OWNER: '',
-    REPO: '',
+    ROOT_DOMAIN: 'matthewkeil.com',
+    OWNER: 'matthewkeil',
+    REPO: 'matthewkeil.com',
     REGION,
     CF,
     S3,

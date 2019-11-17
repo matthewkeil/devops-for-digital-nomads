@@ -31,35 +31,36 @@ export const deployServer = async () => {
         const command = 'npm run build:prod';
         console.log(`rebuilding server repo using "${command}"`);
         buildPromise = exec(
-            `cd client && export NODE_ENV=production && ${command}`
+            `cd server && export NODE_ENV=production && ${command}`
         );
     }
 
     const domain = config.ROOT_DOMAIN;
     const Bucket = getArtifactsBucketName({ domain, branch });
 
-    let bucketPromise: Promise<any> = Promise.resolve();
-    if (!await bucketExists({ Bucket })) {
-        bucketPromise = createBucketWithFolders({ Bucket });
-    }
+    console.log(Bucket)
+    // let bucketPromise: Promise<any> = Promise.resolve();
+    // if (!await bucketExists({ Bucket })) {
+    //     bucketPromise = createBucketWithFolders({ Bucket });
+    // }
 
-    const StackName = getStackName({ branch, domain, stack: 'server' });
-    const TemplateBody = buildServerTemplate({ branch, StackName });
+    // const StackName = getStackName({ branch, domain, stack: 'server' });
+    // const TemplateBody = buildServerTemplate({ branch, StackName });
 
-    console.log("saving saml.yml to /dist");
-    saveSaml(TemplateBody);
+    // console.log("saving saml.yml to /dist");
+    // saveSaml(TemplateBody);
 
-    await Promise.all([buildPromise, bucketPromise]);
+    // await Promise.all([buildPromise, bucketPromise]);
 
-    // package code and put in bucket
-    console.log(`packaging and uploading code to ${Bucket}`);
-    await exec(
-        `aws cloudformation package --template-file ${serverDistLocation}/saml.yml --output-template-file ${serverDistLocation}/cloudformation.yml --s3-bucket ${Bucket}`
-    );
+    // // package code and put in bucket
+    // console.log(`packaging and uploading code to ${Bucket}`);
+    // await exec(
+    //     `aws cloudformation package --template-file ${serverDistLocation}/saml.yml --output-template-file ${serverDistLocation}/cloudformation.yml --s3-bucket ${Bucket}`
+    // );
 
-    // deploy stack
-    console.log("deploying code");
-    await exec(
-        `aws cloudformation deploy --template-file ${serverDistLocation}/cloudformation.yml --stack-name ${StackName} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides GitHubBranch=${branch}`
-    );
+    // // deploy stack
+    // console.log("deploying code");
+    // await exec(
+    //     `aws cloudformation deploy --template-file ${serverDistLocation}/cloudformation.yml --stack-name ${StackName} --capabilities CAPABILITY_NAMED_IAM --parameter-overrides GitHubBranch=${branch}`
+    // );
 };

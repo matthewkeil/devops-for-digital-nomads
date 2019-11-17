@@ -1,5 +1,8 @@
 .DS_Store
 node_modules
+
+server/dist
+client/dist
 /dist
 
 /tests/e2e/reports/
