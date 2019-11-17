@@ -7,13 +7,15 @@ import { ClientOriginAccessIdentity } from "./cloudfront/ClientOriginAccessIdent
 import { ClientDistribution } from "./cloudfront/ClientDistribution";
 import { ClientRecordSet } from "./route53/ClientRecordSet";
 
+interface TemplateParams {
+    branch: string;
+    StackName: string;
+}
+
 export const clientTemplate = ({
     branch,
     StackName
-}: {
-    branch: string;
-    StackName: string;
-}) => {
+}: TemplateParams) => {
     const template = {
         AWSTemplateFormatVersion: "2010-09-09",
         Description: StackName,

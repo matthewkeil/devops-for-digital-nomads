@@ -1,0 +1,1 @@
+export const allowedMethods = ["GET", "POST", "PUT", "DELETE"];

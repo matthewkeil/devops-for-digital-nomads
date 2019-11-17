@@ -1,4 +1,4 @@
-export const getDomaintName = ({
+export const getDomainName = ({
     branch,
     domain
 }: {

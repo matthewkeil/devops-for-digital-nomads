@@ -11,8 +11,8 @@ import {
 import {
     exec,
     getLocalGitBranch,
-    getDomaintName,
-    pascalCaseDomainName,
+    getDomainName,
+    getStackName,
     getAbsolutePathFromRootRelativePath
 } from "./utils";
 import { config } from "../config";
@@ -41,10 +41,12 @@ export const deployClient = async () => {
         );
     }
 
+    const domain = config.ROOT_DOMAIN;
+
     // make sure bucket exists, if not build stack with bucket and routing
-    const Bucket = getDomaintName({
+    const Bucket = getDomainName({
         branch,
-        domain: config.ROOT_DOMAIN
+        domain
     });
 
     let bucketPromise: Promise<void>;
@@ -54,7 +56,9 @@ export const deployClient = async () => {
         bucketPromise = emptyBucket({ Bucket });
     } else {
         console.log(`building bucket and dns routing stack for ${Bucket}`);
-        const StackName = `client-${pascalCaseDomainName(Bucket)}`;
+
+        const StackName = getStackName({ branch, domain, stack: 'client' });
+
         const TemplateBody = clientTemplate({ branch, StackName });
 
         bucketPromise = handleStackCreateAndUpdate({
