@@ -1,7 +1,8 @@
 import { default as CF, Fn, Refs } from "cloudform";
 import {
     pascalCaseDomainName,
-    getAbsolutePathFromRootRelativePath
+    getAbsolutePathFromRootRelativePath,
+    convertPathToAwsParamStyle
 } from "../bin/utils";
 
 import { DomainName } from "./apiGateway/DomainName";
@@ -11,8 +12,9 @@ import { LogGroup } from "./cloudWatch/LogGroup";
 import { ApiGateway } from "./apiGateway/ApiGateway";
 import { GatewayResponseDefault4XX } from "./apiGateway/GatewayResponseDefault4XX";
 import { GatewayResponseDefault5XX } from "./apiGateway/GatewayResponseDefault5XX";
-import { getHandlers, Handlers } from "../src/utils/buildHandlers";
+import { getHandlers, Handlers } from "../server/src/utils";
 import { config } from "../config";
+import { capitalizeFirstLetter } from "../bin/utils";
 
 interface TemplateParams {
     branch: string;

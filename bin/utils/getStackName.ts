@@ -1,4 +1,4 @@
-import { pascalCaseDomainName } from "../../utils";
+import { pascalCaseDomainName } from "./pascalCaseDomainName";
 
 interface StackNameParameters {
     stack: 'core' | 'client' | 'server';
