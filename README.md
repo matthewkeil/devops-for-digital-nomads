@@ -15,18 +15,21 @@ And the price tag for that sexiness? $0.90\month for hosting the domain with les
 
 Everyone loves FREE. As Oprah says... **You get free hosting! You get free hosting! And you get free hosting! Everyone gets free hosting....**
 
+## Compatability
+This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  The client folder is meant for client-side code and is specifically optimized for the major javascitpt frameworks. However if you are building your code with the `npm run build` command and the static files, that get uploaded after your build end up in the `client/dist` folder then this repo will work as is.  When deploying the client code all files in the `client/dist` folder will get uploaded to Amazon S3 and the infrastructure will fallback to serving `index.html` in the event of a 404-NOT_FOUND (which is what the frameworks need for routing).
+
 ---
 
 ## Project Configuration
-This project was built using TypeScript but if you are using JavaScript that is no problem.  If you can `npm run ___` nomad-devops is for you.  
-
 Configuration is quite straighforward.  Open the `config.ts` file and fill out the following 4 fields.  Currently nomad-devops is only compatable with Github.
 ```typescript
-export const CONFIG = {
+const REGION = 'us-east-1' // or region you prefer to deploy to
+...
+export const config = {
     ROOT_DOMAIN: 'example.com', // this should be the  naked domain without the 'www'
     OWNER: 'gitHubAccountName', // this is the name of the repo owner: 'www.github.com/ownerName'
     REPO: 'gitHubRepoName', // this is the repo name: 'www.github.com/ownerName/repoName'
-    REGION: 'us-east-1' // or region you prefer to deploy to.
+    REGION
 }
 ```
 
@@ -52,11 +55,12 @@ const CF = new AWS.CloudFormation({
 ```
 ---
 
-## Set-up of Hosted Zone and SSL certificate for https hosting
+## Deploying the Core Stack with your DNS and SSL configurations.
 There are a couple of steps to setting up the DNS records and the SSL certificate that will cover your website.  It is mostly automated however there are a few steps you will need to manually complete during the process.
 
-1) `npm run deploy nocert` should be run from the root of the repo.  This will deploy the HostedZone so that you can update your domain provider (ie GoDaddy or domains.google.com) to look to amazon's Route53 service. Once the stack is created go to the Route53 page and click on hosted zones. Then click on the one with the name that you set in the `CONFIG.ROOT_DOMAIN`.  Find the four name servers listed in the value field, next the `NS` type record.  Make a note of these four values as you will need to enter them into the name server field of your domain hosting company.
+1) `npm run deploy core nocert` should be run from the root of the repo.  This will deploy the HostedZone so that you can update your domain registrar (ie GoDaddy or domains.google.com) to point to amazon's Route53 service. Once the stack is created go to the Route53 page and click on hosted zones. Then click on the one with the name that you set in the `config.ROOT_DOMAIN`.  Find the four name servers listed in the value field, next the `NS` type record.  Make a note of these four values as you will need to enter them into the name server field of your domain hosting company.
 
-2) Go to the website where you registerd your domain and look for the name server configuration.  Enter those four name servers from above as the name servers for your domain. Before you will be able to get an SSL cert your name servers need to be configured and it may take up to 48 hours for the changes to occur with some providers.
+2) Go to the website where you registerd your domain and look for the name server configuration.  Enter those four name servers from above as the name servers for your domain. Before you will be able to get an SSL cert your name servers need to be configured and it may take up to 48 hours for the changes to occur with some providers. In practice most registrars will get things propigated in about 10-15 minutes.
 
-3) `npm run deploy` from the root of the repo. This will start the process of getting an SSL certificate by updating the root stack you deployed above.  Once you run this command and the update begins you will need to go to the Cloudformaion page on the Aws console and find the 
+3) Once your NS are updated `npm run deploy core` from the root of the repo. This will start the process of getting an SSL certificate by updating the root stack you deployed above.  Cloudformation will output the RecordSet that needs to be added to your HostedZone and the deploy script is built to notice this and add the record set for you (how convenint!). You just need to sit back and watch it all updated.  It takes about 15 minutes for the SSL certificate to be distributed so grab a cup of coffee and move on to the next task in your list.  Once this process is complete you will be ready to host your client and server with SSL.
+
