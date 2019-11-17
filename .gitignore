@@ -5,6 +5,8 @@ node_modules
 /tests/e2e/reports/
 selenium-debug.log
 
+*packag-lock.json
+
 # local env files
 *.env
 *.env*
