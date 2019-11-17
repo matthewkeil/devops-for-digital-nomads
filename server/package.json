@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean:dist": "rm -rf dist 2> /dev/null && mkdir dist",
+    "postclean:dist": "npm run install:dist",
+    "install:dist": "cp package.json dist/package.json && cd dist && npm install --only=prod && rm package-lock.json",
+    "build": "node_modules/.bin/tsc",
+    "build:prod": "npm run clean:dist && npm run build"
   },
   "keywords": [],
   "author": "",
