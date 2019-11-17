@@ -38,7 +38,6 @@ export const lambdaWrapper = (handler: Handler) => async (
             headers: event.headers,
             body: requestBody
         };
-
         const {
             body,
             headers = {},
