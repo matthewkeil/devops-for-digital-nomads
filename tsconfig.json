@@ -1,24 +1,24 @@
 {
-  "compilerOptions": {
-    "lib": [
-      "esnext",
-      "dom"
-    ],
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "target": "es6",
-    "module": "commonjs",
-    "strict": false,
-    "esModuleInterop": true,
-    "preserveSymlinks": true,
-    "allowSyntheticDefaultImports": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "types": [
-      "node"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ]
-  }
+    "include": ["aws/**/*", "bin/**/*", "lib/**/*"],
+    "compilerOptions": {
+        "lib": ["esnext", "dom"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "outDir": "dist",
+        "target": "es6",
+        "module": "commonjs",
+        "strict": false,
+        "esModuleInterop": true,
+        "preserveSymlinks": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "types": ["node"],
+        "typeRoots": ["node_modules/@types"],
+        "baseUrl": ".",
+        "paths": {
+            "@config": ["./config.ts"],
+            "@lib": ["./lib/index.ts"]
+        }
+    }
 }

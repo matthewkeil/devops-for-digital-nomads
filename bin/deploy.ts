@@ -1,6 +1,7 @@
-import { deployCore } from "./deployCore";
-import { deployClient } from "./deployClient";
-import { deployServer } from "./deployServer";
+#!/usr/bin/env node
+import { deployCore } from "../lib/deployment/deployCore";
+import { deployClient } from "../lib/deployment/deployClient";
+import { deployServer } from "../lib/deployment/deployServer";
 
 /**
  *

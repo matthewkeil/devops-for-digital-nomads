@@ -3,7 +3,7 @@ import {
     pascalCaseDomainName,
     getAbsolutePathFromRootRelativePath,
     convertPathToAwsParamStyle
-} from "../bin/utils";
+} from "../lib/utils";
 
 import { DomainName } from "./apiGateway/DomainName";
 import { ServerRecordSet } from "./route53/ServerRecordSet";
@@ -14,7 +14,7 @@ import { GatewayResponseDefault4XX } from "./apiGateway/GatewayResponseDefault4X
 import { GatewayResponseDefault5XX } from "./apiGateway/GatewayResponseDefault5XX";
 import { getHandlers, Handlers } from "../server/src/utils";
 import { config } from "../config";
-import { capitalizeFirstLetter } from "../bin/utils";
+import { capitalizeFirstLetter } from "../lib/utils";
 
 interface TemplateParams {
     branch: string;
@@ -39,7 +39,8 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 Default: "api"
             },
             BasePath: {
-                Description: "BasePathSegment in https://${SubDomain}.${RootDomain}/${BasePath}",
+                Description:
+                    "BasePathSegment in https://${SubDomain}.${RootDomain}/${BasePath}",
                 Type: "String",
                 Default: branch === "master" ? "v1" : branch
             }
@@ -85,7 +86,9 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 "DomainName.DistributionDomainName for api branch RecordSet to reference",
             Value: Fn.GetAtt("DomainName", "DistributionDomainName"),
             Export: {
-                Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}DistributionDomainName`
+                Name: `${pascalCaseDomainName(
+                    config.ROOT_DOMAIN
+                )}DistributionDomainName`
             }
         };
 
@@ -94,7 +97,9 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 "DomainName.DistributionHostedZoneId for api branch RecordSet to reference",
             Value: Fn.GetAtt("DomainName", "DistributionHostedZoneId"),
             Export: {
-                Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}DistributionHostedZoneId`
+                Name: `${pascalCaseDomainName(
+                    config.ROOT_DOMAIN
+                )}DistributionHostedZoneId`
             }
         };
     }
@@ -146,8 +151,8 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 if (segmentOrRoute.auth) {
                     (handlerDefinition.Properties.Events[Name]
                         .Properties as any).Auth = {
-                            Authorizer: "PassNinjaCognitoAuthorizer"
-                        };
+                        Authorizer: "PassNinjaCognitoAuthorizer"
+                    };
                 }
 
                 // @ts-ignore

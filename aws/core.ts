@@ -1,6 +1,6 @@
 import { Fn } from "cloudform";
 import { config } from "../config";
-import { pascalCaseDomainName, apiGatewayAccountExists } from "../bin";
+import { pascalCaseDomainName, apiGatewayAccountExists } from "../lib";
 
 import { HostedZone } from "./route53/HostedZone";
 import { ApiGatewayAccount } from "./apiGateway/ApiGatewayAccount";
