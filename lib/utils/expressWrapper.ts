@@ -1,8 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import { Handler } from "../interfaces";
-import { ENV } from "../../server/src/utils/ENV";
+import { config } from "@config";
 
-export const nodeWrapper = (handler: Handler) => async (
+export const nodeWrapper = handler => async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -17,7 +16,7 @@ export const nodeWrapper = (handler: Handler) => async (
         if (response.headers) {
             res.setHeader("Access-Control-Allow-Origin", "*");
             Object.entries(response.headers).forEach(([name, value]) =>
-                res.setHeader(name, value)
+                res.setHeader(name, value as string)
             );
         }
 
@@ -33,12 +32,14 @@ export const nodeWrapper = (handler: Handler) => async (
             res.send();
         }
     } catch (err) {
-        if (ENV.DEV) {
+        if (!config.PROD) {
             console.error(err);
         }
 
         res.status(500).json(
-            ENV.DEV ? err : { error: { message: "unexpected server error" } }
+            !config.PROD
+                ? err
+                : { error: { message: "unexpected server error" } }
         );
 
         next(err);

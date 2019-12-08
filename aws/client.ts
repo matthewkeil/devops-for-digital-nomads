@@ -12,10 +12,7 @@ interface TemplateParams {
     StackName: string;
 }
 
-export const clientTemplate = ({
-    branch,
-    StackName
-}: TemplateParams) => {
+export const clientTemplate = ({ branch, StackName }: TemplateParams) => {
     const template = {
         AWSTemplateFormatVersion: "2010-09-09",
         Description: StackName,

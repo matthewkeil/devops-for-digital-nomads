@@ -1,9 +1,8 @@
 import { default as CF, Fn, Refs } from "cloudform";
 import {
     pascalCaseDomainName,
-    getAbsolutePathFromRootRelativePath,
-    convertPathToAwsParamStyle
-} from "../lib/utils";
+    getAbsolutePathFromRootRelativePath
+} from "@lib";
 
 import { DomainName } from "./apiGateway/DomainName";
 import { ServerRecordSet } from "./route53/ServerRecordSet";
@@ -12,9 +11,7 @@ import { LogGroup } from "./cloudWatch/LogGroup";
 import { ApiGateway } from "./apiGateway/ApiGateway";
 import { GatewayResponseDefault4XX } from "./apiGateway/GatewayResponseDefault4XX";
 import { GatewayResponseDefault5XX } from "./apiGateway/GatewayResponseDefault5XX";
-import { getHandlers, Handlers } from "../server/src/utils";
 import { config } from "../config";
-import { capitalizeFirstLetter } from "../lib/utils";
 
 interface TemplateParams {
     branch: string;
@@ -45,7 +42,8 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 Default: branch === "master" ? "v1" : branch
             }
         },
-        // @ts-ignore
+        // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+        // @ts-ignore Serverless isn't part of cloudform
         Globals: {
             Api: {
                 Cors: {
@@ -104,70 +102,70 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
         };
     }
 
-    const parseSegment = (segment: Handlers, currentPath: string): void =>
-        Object.entries(segment).forEach(([name, segmentOrRoute]) => {
-            if (
-                segmentOrRoute.handler &&
-                typeof segmentOrRoute.handler === "function"
-            ) {
-                const Name = capitalizeFirstLetter(name);
+    // const parseSegment = (segment: Handlers, currentPath: string): void =>
+    //     Object.entries(segment).forEach(([name, segmentOrRoute]) => {
+    //         if (
+    //             segmentOrRoute.handler &&
+    //             typeof segmentOrRoute.handler === "function"
+    //         ) {
+    //             const Name = capitalizeFirstLetter(name);
 
-                const handlerDefinition = {
-                    Type: "AWS::Serverless::Function",
-                    DependsOn: "PassLedgerTable",
-                    Properties: {
-                        FunctionName: `${Name}-${branch}`,
-                        Handler: `src/${currentPath}/${name}.lambda`,
-                        Policies: [
-                            "AmazonDynamoDBFullAccess",
-                            "SecretsManagerReadWrite",
-                            "AmazonS3FullAccess",
-                            {
-                                "Version": "2012-10-17",
-                                "Statement": [
-                                    {
-                                        "Effect": "Allow",
-                                        "Action": "ses:*",
-                                        "Resource": "*"
-                                    }
-                                ]
-                            }
-                        ],
-                        Events: {
-                            [Name]: {
-                                Type: "Api",
-                                Properties: {
-                                    RestApiId: Fn.Ref("ApiGateway"),
-                                    Path: convertPathToAwsParamStyle(
-                                        segmentOrRoute.path as string
-                                    ),
-                                    Method: segmentOrRoute.method
-                                }
-                            }
-                        }
-                    }
-                };
+    //             const handlerDefinition = {
+    //                 Type: "AWS::Serverless::Function",
+    //                 DependsOn: "PassLedgerTable",
+    //                 Properties: {
+    //                     FunctionName: `${Name}-${branch}`,
+    //                     Handler: `src/${currentPath}/${name}.lambda`,
+    //                     Policies: [
+    //                         "AmazonDynamoDBFullAccess",
+    //                         "SecretsManagerReadWrite",
+    //                         "AmazonS3FullAccess",
+    //                         {
+    //                             "Version": "2012-10-17",
+    //                             "Statement": [
+    //                                 {
+    //                                     "Effect": "Allow",
+    //                                     "Action": "ses:*",
+    //                                     "Resource": "*"
+    //                                 }
+    //                             ]
+    //                         }
+    //                     ],
+    //                     Events: {
+    //                         [Name]: {
+    //                             Type: "Api",
+    //                             Properties: {
+    //                                 RestApiId: Fn.Ref("ApiGateway"),
+    //                                 Path: convertPathToAwsParamStyle(
+    //                                     segmentOrRoute.path as string
+    //                                 ),
+    //                                 Method: segmentOrRoute.method
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             };
 
-                if (segmentOrRoute.auth) {
-                    (handlerDefinition.Properties.Events[Name]
-                        .Properties as any).Auth = {
-                        Authorizer: "PassNinjaCognitoAuthorizer"
-                    };
-                }
+    //             if (segmentOrRoute.auth) {
+    //                 (handlerDefinition.Properties.Events[Name]
+    //                     .Properties as any).Auth = {
+    //                     Authorizer: "PassNinjaCognitoAuthorizer"
+    //                 };
+    //             }
 
-                // @ts-ignore
-                template.Resources[Name] = handlerDefinition;
+    //             // @ts-ignore
+    //             template.Resources[Name] = handlerDefinition;
 
-                return;
-            }
+    //             return;
+    //         }
 
-            // recursively parse as a path segment
-            return parseSegment(segmentOrRoute, `${currentPath}/${name}`);
-        });
+    //         // recursively parse as a path segment
+    //         return parseSegment(segmentOrRoute, `${currentPath}/${name}`);
+    //     });
 
-    const handlers = getHandlers();
+    // const handlers = getHandlers();
 
-    parseSegment(handlers, "handlers");
+    // parseSegment(handlers, "handlers");
 
     return CF(template);
 };

@@ -8,14 +8,10 @@ import {
     handleStackCreateAndUpdate,
     uploadDirectory
 } from "../aws";
-import {
-    exec,
-    getLocalGitBranch,
-    getDomainName,
-    getStackName,
-    getAbsolutePathFromRootRelativePath
-} from "../utils";
-import { config } from "../../config";
+import { exec, getLocalGitBranch } from "../utils";
+import { getDomainName, getStackName } from "../strings";
+import { getAbsolutePathFromRootRelativePath } from "../fs";
+import { config } from "@config";
 import { clientTemplate } from "../../aws/client";
 import { getClientBuildCommand } from "../utils/getClientBuildCommand";
 

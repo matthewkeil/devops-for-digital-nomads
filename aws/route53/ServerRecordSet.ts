@@ -1,5 +1,5 @@
 import { Route53, Fn } from "cloudform";
-import { config } from "../../config";
+import { config } from "@config";
 import { pascalCaseDomainName } from "../../lib";
 
 export const ServerRecordSet = new Route53.RecordSet({

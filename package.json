@@ -3,12 +3,14 @@
     "version": "1.0.1",
     "description": "Full Ops and Devops platform targeted at digital nomads and startups. Utilizes AWS platform and CloudFormation to set up everything with IaaC",
     "main": "dist/index.js",
-    "bin": {},
+    "bin": {
+        "devops": "dist/devops.js"
+    },
     "scripts": {
         "build": "node_modules/.bin/tsc",
         "deploy": "npm run ts -- bin/deploy",
         "lint": "node_modules/.bin/eslint --ext .ts",
-        "lint:core": "npm run lint -- aws/ bin/ --fix",
+        "lint:all": "npm run lint -- aws/ bin/ lib/ --fix",
         "ts": "node_modules/.bin/ts-node"
     },
     "devDependencies": {
@@ -32,9 +34,10 @@
         "mime-types": "^2.1.24",
         "prettier": "^1.17.1",
         "ts-node": "^8.4.1",
-        "typescript": "^3.7.2"
+        "typescript": "3.6.4"
     },
     "dependencies": {
+        "aws-lambda": "^0.1.2",
         "body-parser": "^1.19.0",
         "compression": "^1.7.4",
         "cors": "^2.8.5",

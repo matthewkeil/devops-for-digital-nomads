@@ -30,7 +30,15 @@ export const handleStackCreateAndUpdate = async (
         if (events.length !== fullList.length) {
             const currentLength = events.length;
             events = fullList;
-            console.table(fullList.slice(currentLength).filter(event => event.StatusReason.includes('Resource creation Initiated')));
+            console.table(
+                fullList
+                    .slice(currentLength)
+                    .filter(event =>
+                        event.StatusReason.includes(
+                            "Resource creation Initiated"
+                        )
+                    )
+            );
         }
 
         const certCreationEvent = fullList.find(event => {

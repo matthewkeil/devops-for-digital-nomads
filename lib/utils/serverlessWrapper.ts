@@ -1,13 +1,8 @@
-import {
-    APIGatewayEvent,
-    APIGatewayEventRequestContext,
-    Callback
-} from "aws-lambda";
-import { Handler } from "../interfaces/Handler";
+import { APIGatewayEvent, Callback } from "aws-lambda";
 import { StatusCode } from "../interfaces/HttpStatusCode";
-import { ENV } from "../../server/src/utils/ENV";
+import { config } from "@config";
 
-export const lambdaWrapper = (handler: Handler) => async (
+export const lambdaWrapper = handler => async (
     event: APIGatewayEvent,
     callback: Callback
 ): Promise<void> => {
@@ -53,7 +48,7 @@ export const lambdaWrapper = (handler: Handler) => async (
                 "Access-Control-Allow-Origin": "*"
             },
             isBase64Encoded: false,
-            body: JSON.stringify(ENV.DEBUG ? err : { message: err.message })
+            body: JSON.stringify(!config.PROD ? err : { message: err.message })
         });
     }
 };

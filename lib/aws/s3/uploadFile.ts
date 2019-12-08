@@ -1,6 +1,6 @@
 import fs from "fs";
 import { lookup } from "mime-types";
-import { config } from "../../../config";
+import { config } from "@config";
 
 const { S3 } = config;
 

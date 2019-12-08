@@ -1,5 +1,5 @@
 import { CloudFront, Fn } from "cloudform";
-import { config } from "../../config";
+import { config } from "@config";
 import { pascalCaseDomainName } from "../../lib";
 
 export const ClientDistribution = new CloudFront.Distribution({

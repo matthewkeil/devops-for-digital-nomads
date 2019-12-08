@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { getAbsolutePathFromRootRelativePath } from "../utils";
+import { getAbsolutePathFromRootRelativePath } from "../fs/getAbsolutePathFromRootRelativePath";
 
 const samlDirectory = getAbsolutePathFromRootRelativePath("server/dist");
 

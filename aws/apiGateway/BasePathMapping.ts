@@ -1,13 +1,10 @@
 import { ApiGateway, Fn } from "cloudform";
-import { config } from "../../config";
+import { config } from "@config";
 
 export const BasePathMapping = (branch: string) => {
     const basePathMapping = new ApiGateway.BasePathMapping({
         RestApiId: Fn.Ref("ApiGateway"),
-        DomainName: Fn.Join(".", [
-            Fn.Ref("SubDomain"),
-            config.ROOT_DOMAIN
-        ]),
+        DomainName: Fn.Join(".", [Fn.Ref("SubDomain"), config.ROOT_DOMAIN]),
         BasePath: Fn.Ref("BasePath"),
         Stage: Fn.Ref("GitHubBranch")
     });

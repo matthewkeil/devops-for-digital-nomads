@@ -1,9 +1,11 @@
 {
     "include": ["aws/**/*", "bin/**/*", "lib/**/*"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "lib": ["esnext", "dom"],
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "baseUrl": ".",
         "outDir": "dist",
         "target": "es6",
         "module": "commonjs",
@@ -15,10 +17,10 @@
         "resolveJsonModule": true,
         "types": ["node"],
         "typeRoots": ["node_modules/@types"],
-        "baseUrl": ".",
         "paths": {
             "@config": ["./config.ts"],
-            "@lib": ["./lib/index.ts"]
+            "@lib": ["./lib/index.ts"],
+            "@lib/*": ["./lib/*"]
         }
     }
 }

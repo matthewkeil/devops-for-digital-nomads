@@ -1,5 +1,5 @@
 import * as AWS from "aws-sdk";
-import { config } from "../../../config";
+import { config } from "@config";
 
 const cloudfront = new AWS.CloudFront(config.AWS_SERVICE_CONFIG);
 

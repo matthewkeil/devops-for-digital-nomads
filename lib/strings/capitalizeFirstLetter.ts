@@ -1,4 +1,4 @@
-export const capitalizeFirstLetter = (input: string = ""): string => {
+export const capitalizeFirstLetter = (input = ""): string => {
     if (typeof input !== "string" || input === "") {
         throw new Error("must supply a valid string");
     }
