@@ -16,11 +16,6 @@
         "moduleResolution": "node",
         "resolveJsonModule": true,
         "types": ["node"],
-        "typeRoots": ["node_modules/@types"],
-        "paths": {
-            "@config": ["./config.ts"],
-            "@lib": ["./lib/index.ts"],
-            "@lib/*": ["./lib/*"]
-        }
+        "typeRoots": ["node_modules/@types"]
     }
 }
