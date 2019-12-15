@@ -3,6 +3,7 @@
     "version": "1.0.2",
     "description": "Full Ops and Devops platform targeted at digital nomads and startups. Utilizes AWS platform and CloudFormation to set up everything with IaaC",
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "bin": {
         "deploy": "dist/bin/deploy.js"
     },

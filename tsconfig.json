@@ -11,6 +11,7 @@
         "emitDecoratorMetadata": true,
         "baseUrl": ".",
         "outDir": "dist",
+        "declaration": true,
         "target": "es6",
         "module": "commonjs",
         "strict": false,
