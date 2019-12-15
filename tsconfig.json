@@ -1,7 +1,11 @@
 {
-    "include": ["aws/**/*", "bin/**/*", "lib/**/*"],
+    "include": ["index.ts", "aws/**/*", "bin/**/*", "lib/**/*"],
     "exclude": ["node_modules"],
     "compilerOptions": {
+        "paths": {
+            "@config": ["./config.ts"],
+            "@lib": ["./lib"]
+        },
         "lib": ["esnext", "dom"],
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,

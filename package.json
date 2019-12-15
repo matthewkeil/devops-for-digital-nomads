@@ -2,12 +2,14 @@
     "name": "nomad-devops",
     "version": "1.0.2",
     "description": "Full Ops and Devops platform targeted at digital nomads and startups. Utilizes AWS platform and CloudFormation to set up everything with IaaC",
-    "main": "devops.js",
+    "main": "dist/index.js",
     "bin": {
-        "devops": "devops.js"
+        "deploy": "dist/bin/deploy.js"
     },
     "scripts": {
-        "build": "node_modules/.bin/ts-node node_modules/.bin/webpack-cli --config ./webpack.config.ts",
+        "clean:dist": "rm -rf dist && mkdir dist",
+        "build": "node_modules/.bin/tsc",
+        "webpack": "node_modules/.bin/ts-node node_modules/.bin/webpack-cli --config ./webpack.config.ts",
         "build:prod": "NODE_ENV='production' npm run build",
         "deploy": "npm run ts -- bin/deploy",
         "lint": "node_modules/.bin/eslint --ext .ts",
