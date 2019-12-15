@@ -8,9 +8,7 @@ import { getStackEvents } from "./getStackEvents";
 import { createCertRecordSet } from "../route53";
 
 export const handleStackCreateAndUpdate = async (
-    params:
-        | AWS.CloudFormation.CreateStackInput
-        | AWS.CloudFormation.UpdateStackInput
+    params: AWS.CloudFormation.CreateStackInput | AWS.CloudFormation.UpdateStackInput
 ) => {
     /**
      *
@@ -33,11 +31,7 @@ export const handleStackCreateAndUpdate = async (
             console.table(
                 fullList
                     .slice(currentLength)
-                    .filter(event =>
-                        event.StatusReason.includes(
-                            "Resource creation Initiated"
-                        )
-                    )
+                    .filter(event => event.StatusReason.includes("Resource creation Initiated"))
             );
         }
 
@@ -53,10 +47,7 @@ export const handleStackCreateAndUpdate = async (
         if (certCreationEvent) {
             const dnsRecord = certCreationEvent.StatusReason.split(": ");
             const recordSetName = dnsRecord[2].split(",")[0];
-            const recordSetValue = dnsRecord[4].substr(
-                0,
-                dnsRecord[4].length - 1
-            );
+            const recordSetValue = dnsRecord[4].substr(0, dnsRecord[4].length - 1);
 
             await createCertRecordSet({
                 StackName: params.StackName,
@@ -77,9 +68,7 @@ export const handleStackCreateAndUpdate = async (
         case StackStatus.UPDATE_ROLLBACK_FAILED:
         case StackStatus.CREATE_FAILED:
             // cases where delete must happen first
-            console.log(
-                `${params.StackName} is in a failed state. deleting first`
-            );
+            console.log(`${params.StackName} is in a failed state. deleting first`);
             await deleteStack(params);
 
             console.log("delete complete. rebuilding stack");

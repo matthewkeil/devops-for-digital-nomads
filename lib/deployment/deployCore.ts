@@ -5,9 +5,7 @@ import { handleStackCreateAndUpdate } from "../aws";
 import { buildCoreTemplate } from "../../aws/core";
 
 export const deployCore = async () => {
-    const noCert = process.argv.find(arg =>
-        arg.toLowerCase().includes("nocert")
-    );
+    const noCert = process.argv.find(arg => arg.toLowerCase().includes("nocert"));
     const deployCert = !!noCert ? false : true;
 
     const template = await buildCoreTemplate(deployCert);

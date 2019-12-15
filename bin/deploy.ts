@@ -12,11 +12,7 @@ import { deployServer } from "../lib/deployment/deployServer";
     const findStack = process.argv.find(arg => {
         const ARG = arg.toLowerCase();
 
-        if (
-            ARG.includes("core") ||
-            ARG.includes("server") ||
-            ARG.includes("client")
-        ) {
+        if (ARG.includes("core") || ARG.includes("server") || ARG.includes("client")) {
             return true;
         }
     });

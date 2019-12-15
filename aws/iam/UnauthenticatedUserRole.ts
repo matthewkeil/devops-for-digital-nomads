@@ -13,9 +13,7 @@ export const UnauthenticatedUserRole = new IAM.Role({
                 Action: "sts:AssumeRoleWithWebIdentity",
                 Condition: {
                     StringEquals: {
-                        "cognito-identity.amazonaws.com:aud": Fn.ImportValue(
-                            "IdentityPoolId"
-                        )
+                        "cognito-identity.amazonaws.com:aud": Fn.ImportValue("IdentityPoolId")
                     },
                     "ForAnyValue:StringLike": {
                         "cognito-identity.amazonaws.com:amr": "unauthenticated"

@@ -3,11 +3,7 @@ import { config } from "@config";
 
 const cloudfront = new AWS.CloudFront(config.AWS_SERVICE_CONFIG);
 
-export const getDistributionForBucket = async ({
-    Bucket
-}: {
-    Bucket: string;
-}) => {
+export const getDistributionForBucket = async ({ Bucket }: { Bucket: string }) => {
     const { DistributionList } = await cloudfront.listDistributions().promise();
 
     if (!DistributionList.Items) {
@@ -29,9 +25,7 @@ export const getDistributionForBucket = async ({
     });
 
     if (!distribution) {
-        throw new Error(
-            `couldn't find a distribution associated with bucket ${Bucket}`
-        );
+        throw new Error(`couldn't find a distribution associated with bucket ${Bucket}`);
     }
 
     return distribution.Id;

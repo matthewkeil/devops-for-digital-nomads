@@ -10,8 +10,7 @@ export const lambdaWrapper = handler => async (
         const parameters = {};
         if (event.pathParameters) {
             Object.entries(event.pathParameters).forEach(
-                ([param, value]) =>
-                    (parameters[param] = decodeURIComponent(value as string))
+                ([param, value]) => (parameters[param] = decodeURIComponent(value as string))
             );
         }
         let requestBody = {};
@@ -22,20 +21,14 @@ export const lambdaWrapper = handler => async (
         } catch (err) {
             console.error("JSON.parse failed on request body");
         }
-        const {
-            body,
-            headers = {},
-            statusCode = 200,
-            isBase64Encoded = false
-        } = await handler({
+        const { body, headers = {}, statusCode = 200, isBase64Encoded = false } = await handler({
             parameters,
             headers: event.headers,
             body: requestBody
         });
         headers["Access-Control-Allow-Origin"] = "*";
         callback(null, {
-            body:
-                !body || typeof body === "string" ? body : JSON.stringify(body),
+            body: !body || typeof body === "string" ? body : JSON.stringify(body),
             headers,
             statusCode,
             isBase64Encoded

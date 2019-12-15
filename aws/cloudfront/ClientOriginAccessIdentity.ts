@@ -8,15 +8,13 @@ import { config } from "@config";
  *
  */
 
-export const ClientOriginAccessIdentity = new CloudFront.CloudFrontOriginAccessIdentity(
-    {
-        CloudFrontOriginAccessIdentityConfig: {
-            Comment: Fn.Join("", [
-                `origin access identity for `,
-                Fn.Ref("SubDomain"),
-                ".",
-                config.ROOT_DOMAIN
-            ])
-        }
+export const ClientOriginAccessIdentity = new CloudFront.CloudFrontOriginAccessIdentity({
+    CloudFrontOriginAccessIdentityConfig: {
+        Comment: Fn.Join("", [
+            `origin access identity for `,
+            Fn.Ref("SubDomain"),
+            ".",
+            config.ROOT_DOMAIN
+        ])
     }
-);
+});

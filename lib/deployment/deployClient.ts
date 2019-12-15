@@ -26,15 +26,10 @@ export const deployClient = async () => {
 
     const clientDistLocation = "client/dist";
     let buildPromise: Promise<void | string> = Promise.resolve();
-    if (
-        rebuild ||
-        !fs.existsSync(getAbsolutePathFromRootRelativePath(clientDistLocation))
-    ) {
+    if (rebuild || !fs.existsSync(getAbsolutePathFromRootRelativePath(clientDistLocation))) {
         const command = getClientBuildCommand();
         console.log(`rebuilding client repo using "${command}"`);
-        buildPromise = exec(
-            `cd client && export NODE_ENV=production && ${command}`
-        );
+        buildPromise = exec(`cd client && export NODE_ENV=production && ${command}`);
     }
 
     const domain = config.ROOT_DOMAIN;

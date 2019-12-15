@@ -18,8 +18,7 @@ export const clientTemplate = ({ branch, StackName }: TemplateParams) => {
         Description: StackName,
         Parameters: {
             SubDomain: {
-                Description:
-                    "Sub-domain prefix to add to dns ${SubDomain}.${RootDomain}",
+                Description: "Sub-domain prefix to add to dns ${SubDomain}.${RootDomain}",
                 Type: "String",
                 Default: branch === "master" ? "www" : branch
             }
@@ -34,18 +33,15 @@ export const clientTemplate = ({ branch, StackName }: TemplateParams) => {
     };
 
     if (branch === "master") {
-        (template.Resources.ClientDistribution.Properties.DistributionConfig
-            .Aliases as any).push(config.ROOT_DOMAIN);
-        (template.Resources as any).ClientRootRecordSet = Object.assign(
-            {},
-            ClientRecordSet,
-            {
-                Properties: {
-                    ...ClientRecordSet.Properties,
-                    Name: config.ROOT_DOMAIN
-                }
-            }
+        (template.Resources.ClientDistribution.Properties.DistributionConfig.Aliases as any).push(
+            config.ROOT_DOMAIN
         );
+        (template.Resources as any).ClientRootRecordSet = Object.assign({}, ClientRecordSet, {
+            Properties: {
+                ...ClientRecordSet.Properties,
+                Name: config.ROOT_DOMAIN
+            }
+        });
     }
 
     return CF(template);

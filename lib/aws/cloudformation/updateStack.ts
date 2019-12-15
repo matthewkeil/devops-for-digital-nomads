@@ -2,9 +2,7 @@ import { config } from "@config";
 
 const { CF } = config;
 
-export const updateStack = async (
-    params: AWS.CloudFormation.UpdateStackInput
-) => {
+export const updateStack = async (params: AWS.CloudFormation.UpdateStackInput) => {
     console.log(`updating stack ${params.StackName} through cloud formation`);
 
     const response: any = await CF.updateStack(params).promise();

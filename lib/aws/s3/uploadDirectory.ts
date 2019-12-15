@@ -7,11 +7,7 @@ interface UploadDirectoryParams {
     Bucket: string;
 }
 
-export const uploadDirectory = async ({
-    localPath,
-    uploadPath,
-    Bucket
-}: UploadDirectoryParams) => {
+export const uploadDirectory = async ({ localPath, uploadPath, Bucket }: UploadDirectoryParams) => {
     const path = getAbsolutePathFromRootRelativePath(localPath);
 
     // ensure that teh keyBase starts with a '/'. this is necessary

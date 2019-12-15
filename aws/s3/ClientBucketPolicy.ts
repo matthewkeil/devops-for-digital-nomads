@@ -11,10 +11,7 @@ export const ClientBucketPolicy = new S3.BucketPolicy({
                 Action: "s3:GetObject",
                 Resource: Fn.Join("", [Fn.GetAtt("ClientBucket", "Arn"), "/*"]),
                 Principal: {
-                    CanonicalUser: Fn.GetAtt(
-                        "ClientOriginAccessIdentity",
-                        "S3CanonicalUserId"
-                    )
+                    CanonicalUser: Fn.GetAtt("ClientOriginAccessIdentity", "S3CanonicalUserId")
                 }
             }
         ]

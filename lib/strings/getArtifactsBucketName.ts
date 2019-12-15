@@ -5,8 +5,5 @@ interface ArtifactsBucketNameParameters {
     branch: string;
 }
 
-export const getArtifactsBucketName = ({
-    domain,
-    branch
-}: ArtifactsBucketNameParameters) =>
+export const getArtifactsBucketName = ({ domain, branch }: ArtifactsBucketNameParameters) =>
     `${pascalCaseDomainName(domain)}-${branch}-server`;

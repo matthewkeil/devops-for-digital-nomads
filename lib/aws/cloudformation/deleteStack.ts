@@ -8,10 +8,7 @@ interface DeleteStackParams {
     emptyBuckets?: boolean;
 }
 
-export const deleteStack = async ({
-    StackName,
-    emptyBuckets
-}: DeleteStackParams) => {
+export const deleteStack = async ({ StackName, emptyBuckets }: DeleteStackParams) => {
     console.log(`deleting stack ${StackName} through cloud formation`);
 
     if (emptyBuckets) {

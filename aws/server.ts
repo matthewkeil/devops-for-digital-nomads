@@ -1,8 +1,5 @@
 import { default as CF, Fn, Refs } from "cloudform";
-import {
-    pascalCaseDomainName,
-    getAbsolutePathFromRootRelativePath
-} from "@lib";
+import { pascalCaseDomainName, getAbsolutePathFromRootRelativePath } from "@lib";
 
 import { DomainName } from "./apiGateway/DomainName";
 import { ServerRecordSet } from "./route53/ServerRecordSet";
@@ -30,14 +27,12 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 Default: branch
             },
             SubDomain: {
-                Description:
-                    "Sub-domain prefix to add to dns records ${SubDomain}.${RootDomain}",
+                Description: "Sub-domain prefix to add to dns records ${SubDomain}.${RootDomain}",
                 Type: "String",
                 Default: "api"
             },
             BasePath: {
-                Description:
-                    "BasePathSegment in https://${SubDomain}.${RootDomain}/${BasePath}",
+                Description: "BasePathSegment in https://${SubDomain}.${RootDomain}/${BasePath}",
                 Type: "String",
                 Default: branch === "master" ? "v1" : branch
             }
@@ -80,13 +75,10 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
         (template.Resources as any).DomainName = DomainName;
 
         (template as any).Outputs.DistributionDomainName = {
-            Description:
-                "DomainName.DistributionDomainName for api branch RecordSet to reference",
+            Description: "DomainName.DistributionDomainName for api branch RecordSet to reference",
             Value: Fn.GetAtt("DomainName", "DistributionDomainName"),
             Export: {
-                Name: `${pascalCaseDomainName(
-                    config.ROOT_DOMAIN
-                )}DistributionDomainName`
+                Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}DistributionDomainName`
             }
         };
 
@@ -95,9 +87,7 @@ export const buildServerTemplate = ({ branch, StackName }: TemplateParams) => {
                 "DomainName.DistributionHostedZoneId for api branch RecordSet to reference",
             Value: Fn.GetAtt("DomainName", "DistributionHostedZoneId"),
             Export: {
-                Name: `${pascalCaseDomainName(
-                    config.ROOT_DOMAIN
-                )}DistributionHostedZoneId`
+                Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}DistributionHostedZoneId`
             }
         };
     }

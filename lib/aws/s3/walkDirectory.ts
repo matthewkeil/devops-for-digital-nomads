@@ -11,11 +11,7 @@ interface WalkDirectoryProps {
     Bucket: string;
 }
 
-export const walkDirectory = async ({
-    path,
-    keyBase,
-    Bucket
-}: WalkDirectoryProps) =>
+export const walkDirectory = async ({ path, keyBase, Bucket }: WalkDirectoryProps) =>
     new Promise((resolve, reject) => {
         console.log("attempting to upload " + path);
 

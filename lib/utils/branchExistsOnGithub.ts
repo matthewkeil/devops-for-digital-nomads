@@ -22,9 +22,7 @@ export const checkBranchExistsOnGithub = async ({
         });
     } catch (err) {
         if (err.name == "HttpError") {
-            throw new Error(
-                "GITHUB_ACCESS_TOKEN is missing from your .env file"
-            );
+            throw new Error("GITHUB_ACCESS_TOKEN is missing from your .env file");
         }
         throw err;
     }
@@ -34,9 +32,7 @@ export const checkBranchExistsOnGithub = async ({
         Array.isArray(branches.data) &&
         branches.data.findIndex((b: any) => b.name === localBranch) === -1
     ) {
-        throw new Error(
-            `branch ${localBranch} does not exist on ${owner}/${repo}`
-        );
+        throw new Error(`branch ${localBranch} does not exist on ${owner}/${repo}`);
     }
 
     return localBranch;

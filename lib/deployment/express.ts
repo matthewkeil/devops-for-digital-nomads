@@ -10,11 +10,7 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(
     cors({
-        origin: !config.PROD
-            ? /localhost/
-            : config.CORS
-            ? `*.${config.ROOT_DOMAIN}`
-            : "*",
+        origin: !config.PROD ? /localhost/ : config.CORS ? `*.${config.ROOT_DOMAIN}` : "*",
         methods: config.ALLOWED_METHODS,
         credentials: true,
         allowedHeaders: [

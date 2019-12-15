@@ -4,17 +4,16 @@
     "description": "Full Ops and Devops platform targeted at digital nomads and startups. Utilizes AWS platform and CloudFormation to set up everything with IaaC",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
+    "files": [
+        "dist/**/*"
+    ],
     "bin": {
         "deploy": "dist/bin/deploy.js"
     },
     "scripts": {
         "clean:dist": "rm -rf dist && mkdir dist",
         "build": "node_modules/.bin/tsc",
-        "webpack": "node_modules/.bin/ts-node node_modules/.bin/webpack-cli --config ./webpack.config.ts",
-        "build:prod": "NODE_ENV='production' npm run build",
-        "deploy": "npm run ts -- bin/deploy",
-        "lint": "node_modules/.bin/eslint --ext .ts",
-        "lint:all": "npm run lint -- aws/ bin/ lib/ --fix",
+        "lint": "node_modules/.bin/eslint --ext .ts --fix aws/ bin/ lib/",
         "prepublish": "npm run build:prod && cp package.json dist/package.json",
         "publish": "npm run publish",
         "ts": "node_modules/.bin/ts-node"
@@ -30,22 +29,20 @@
         "@types/webpack": "^4.41.0",
         "@typescript-eslint/eslint-plugin": "^2.6.1",
         "@typescript-eslint/parser": "^2.6.1",
-        "cloudform": "^4.1.0",
         "eslint": "^6.6.0",
         "eslint-config-prettier": "^6.5.0",
         "eslint-plugin-prettier": "^3.1.1",
         "prettier": "^1.17.1",
         "ts-loader": "^6.2.1",
         "ts-node": "^8.4.1",
-        "typescript": "3.6.4",
-        "webpack": "^4.41.2",
-        "webpack-cli": "^3.3.10"
+        "typescript": "3.6.4"
     },
     "dependencies": {
         "@octokit/rest": "^16.34.1",
         "aws-sdk": "^2.568.0",
         "aws-lambda": "^0.1.2",
         "body-parser": "^1.19.0",
+        "cloudform": "^4.1.0",
         "compression": "^1.7.4",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",

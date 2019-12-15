@@ -37,9 +37,7 @@ export const nodeWrapper = handler => async (
         }
 
         res.status(500).json(
-            !config.PROD
-                ? err
-                : { error: { message: "unexpected server error" } }
+            !config.PROD ? err : { error: { message: "unexpected server error" } }
         );
 
         next(err);

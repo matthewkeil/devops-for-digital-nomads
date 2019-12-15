@@ -26,9 +26,7 @@ export const buildCoreTemplate = async (deployCert: boolean) => {
                 Description: `HostedZoneId for ${config.ROOT_DOMAIN}`,
                 Value: Fn.Ref("HostedZone"),
                 Export: {
-                    Name: `${pascalCaseDomainName(
-                        config.ROOT_DOMAIN
-                    )}HostedZone`
+                    Name: `${pascalCaseDomainName(config.ROOT_DOMAIN)}HostedZone`
                 }
             }
         }

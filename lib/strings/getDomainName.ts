@@ -1,10 +1,4 @@
-export const getDomainName = ({
-    branch,
-    domain
-}: {
-    branch: string;
-    domain: string;
-}) => {
+export const getDomainName = ({ branch, domain }: { branch: string; domain: string }) => {
     let _branch = branch;
 
     if (branch === "master") {

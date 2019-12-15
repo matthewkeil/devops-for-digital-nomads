@@ -11,8 +11,5 @@ export const saveSaml = (template: string) => {
         fs.mkdirSync(samlDirectory);
     }
 
-    fs.writeFileSync(
-        samlName,
-        require("json2yaml").stringify(JSON.parse(template))
-    );
+    fs.writeFileSync(samlName, require("json2yaml").stringify(JSON.parse(template)));
 };

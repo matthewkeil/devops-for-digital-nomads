@@ -25,9 +25,7 @@ export const createCacheInvalidation = async ({
             })
             .promise();
 
-    const id = DistributionId
-        ? DistributionId
-        : await getDistributionForBucket({ Bucket });
+    const id = DistributionId ? DistributionId : await getDistributionForBucket({ Bucket });
 
     if (!id) {
         throw new Error(

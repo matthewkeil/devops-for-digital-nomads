@@ -15,9 +15,7 @@ export const storeSecretString = async ({ Name }: { Name?: string }) => {
     let parameter: AWS.SSM.GetParameterResult;
 
     try {
-        parameter = await ssm
-            .getParameter({ Name, WithDecryption: true })
-            .promise();
+        parameter = await ssm.getParameter({ Name, WithDecryption: true }).promise();
     } catch (err) {
         if (err.code !== "ParameterNotFound") {
             throw err;

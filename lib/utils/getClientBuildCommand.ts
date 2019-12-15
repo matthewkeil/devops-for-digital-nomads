@@ -24,12 +24,8 @@ export const getClientBuildCommand = async () => {
     });
     if (!framework.size || framework.size > 1) {
         !!framework.size
-            ? console.log(
-                  `found multiple frameworks. defaulting to "npm run build"`
-              )
-            : console.log(
-                  `didn't find a framework. defaulting to "npm run build"`
-              );
+            ? console.log(`found multiple frameworks. defaulting to "npm run build"`)
+            : console.log(`didn't find a framework. defaulting to "npm run build"`);
         return "npm run build";
     }
     if (framework.has("vue") || framework.has("react")) {
