@@ -8,7 +8,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudform_1 = __importStar(require("cloudform"));
-const _lib_1 = require("@lib");
+const lib_1 = require("../lib");
 const DomainName_1 = require("./apiGateway/DomainName");
 const ServerRecordSet_1 = require("./route53/ServerRecordSet");
 const BasePathMapping_1 = require("./apiGateway/BasePathMapping");
@@ -50,7 +50,7 @@ exports.buildServerTemplate = ({ branch, StackName }) => {
                 }
             },
             Function: {
-                CodeUri: _lib_1.getAbsolutePathFromRootRelativePath("server/dist"),
+                CodeUri: lib_1.getAbsolutePathFromRootRelativePath("server/dist"),
                 Runtime: "nodejs10.x",
                 Timeout: 60,
                 Environment: {
@@ -78,14 +78,14 @@ exports.buildServerTemplate = ({ branch, StackName }) => {
             Description: "DomainName.DistributionDomainName for api branch RecordSet to reference",
             Value: cloudform_1.Fn.GetAtt("DomainName", "DistributionDomainName"),
             Export: {
-                Name: `${_lib_1.pascalCaseDomainName(config_1.config.ROOT_DOMAIN)}DistributionDomainName`
+                Name: `${lib_1.pascalCaseDomainName(config_1.config.ROOT_DOMAIN)}DistributionDomainName`
             }
         };
         template.Outputs.DistributionHostedZoneId = {
             Description: "DomainName.DistributionHostedZoneId for api branch RecordSet to reference",
             Value: cloudform_1.Fn.GetAtt("DomainName", "DistributionHostedZoneId"),
             Export: {
-                Name: `${_lib_1.pascalCaseDomainName(config_1.config.ROOT_DOMAIN)}DistributionHostedZoneId`
+                Name: `${lib_1.pascalCaseDomainName(config_1.config.ROOT_DOMAIN)}DistributionHostedZoneId`
             }
         };
     }

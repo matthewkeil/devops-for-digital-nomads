@@ -13,7 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // import fs from "fs";
 // import { exec, getLocalGitBranch } from "../utils";
 // import { getAbsolutePathFromRootRelativePath } from "../fs";
-// import { config } from "@config";
+// import { config } from "../../config";
 // import { getArtifactsBucketName } from "../strings";
 exports.deployServer = () => __awaiter(void 0, void 0, void 0, function* () {
     // const branch = getLocalGitBranch();

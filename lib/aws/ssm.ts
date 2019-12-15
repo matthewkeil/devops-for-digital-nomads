@@ -7,7 +7,7 @@ if (!process.env.GITHUB_ACCESS_TOKEN) {
 }
 
 import AWS from "aws-sdk";
-import { config } from "@config";
+import { config } from "../../config";
 
 const ssm = new AWS.SSM(config.AWS_SERVICE_CONFIG);
 

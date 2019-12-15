@@ -1,5 +1,5 @@
 import { emptyBucket } from "../s3/emptyBucket";
-import { config } from "@config";
+import { config } from "../../../config";
 
 const { CF } = config;
 

@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
-const _config_1 = require("@config");
-const { CF } = _config_1.config;
-const route53 = new aws_sdk_1.default.Route53(_config_1.config.AWS_SERVICE_CONFIG);
+const config_1 = require("../../config");
+const { CF } = config_1.config;
+const route53 = new aws_sdk_1.default.Route53(config_1.config.AWS_SERVICE_CONFIG);
 exports.createCertRecordSet = ({ StackName, recordSetName, recordSetValue }) => __awaiter(void 0, void 0, void 0, function* () {
     const { StackResourceSummaries } = yield CF.listStackResources({
         StackName

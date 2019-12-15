@@ -30,8 +30,7 @@ exports.clientTemplate = ({ branch, StackName }) => {
         }
     };
     if (branch === "master") {
-        template.Resources.ClientDistribution.Properties.DistributionConfig
-            .Aliases.push(config_1.config.ROOT_DOMAIN);
+        template.Resources.ClientDistribution.Properties.DistributionConfig.Aliases.push(config_1.config.ROOT_DOMAIN);
         template.Resources.ClientRootRecordSet = Object.assign({}, ClientRecordSet_1.ClientRecordSet, {
             Properties: Object.assign(Object.assign({}, ClientRecordSet_1.ClientRecordSet.Properties), { Name: config_1.config.ROOT_DOMAIN })
         });

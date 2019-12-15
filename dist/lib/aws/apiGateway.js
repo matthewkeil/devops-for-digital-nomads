@@ -13,9 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
-const _config_1 = require("@config");
-const apiGateway = new aws_sdk_1.default.APIGateway(_config_1.config.AWS_SERVICE_CONFIG);
-const iam = new aws_sdk_1.default.IAM(_config_1.config.AWS_SERVICE_CONFIG);
+const config_1 = require("../../config");
+const apiGateway = new aws_sdk_1.default.APIGateway(config_1.config.AWS_SERVICE_CONFIG);
+const iam = new aws_sdk_1.default.IAM(config_1.config.AWS_SERVICE_CONFIG);
 exports.apiGatewayAccountExists = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { cloudwatchRoleArn } = yield apiGateway.getAccount().promise();

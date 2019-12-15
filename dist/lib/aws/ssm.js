@@ -19,14 +19,12 @@ if (!process.env.GITHUB_ACCESS_TOKEN) {
     }
 }
 const aws_sdk_1 = __importDefault(require("aws-sdk"));
-const _config_1 = require("@config");
-const ssm = new aws_sdk_1.default.SSM(_config_1.config.AWS_SERVICE_CONFIG);
+const config_1 = require("../../config");
+const ssm = new aws_sdk_1.default.SSM(config_1.config.AWS_SERVICE_CONFIG);
 exports.storeSecretString = ({ Name }) => __awaiter(void 0, void 0, void 0, function* () {
     let parameter;
     try {
-        parameter = yield ssm
-            .getParameter({ Name, WithDecryption: true })
-            .promise();
+        parameter = yield ssm.getParameter({ Name, WithDecryption: true }).promise();
     }
     catch (err) {
         if (err.code !== "ParameterNotFound") {

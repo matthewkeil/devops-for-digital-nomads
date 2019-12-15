@@ -9,17 +9,13 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const compression_1 = __importDefault(require("compression"));
-const _config_1 = require("@config");
+const config_1 = require("../../config");
 const app = express_1.default();
 app.use(morgan_1.default("dev"));
 app.use(helmet_1.default());
 app.use(cors_1.default({
-    origin: !_config_1.config.PROD
-        ? /localhost/
-        : _config_1.config.CORS
-            ? `*.${_config_1.config.ROOT_DOMAIN}`
-            : "*",
-    methods: _config_1.config.ALLOWED_METHODS,
+    origin: !config_1.config.PROD ? /localhost/ : config_1.config.CORS ? `*.${config_1.config.ROOT_DOMAIN}` : "*",
+    methods: config_1.config.ALLOWED_METHODS,
     credentials: true,
     allowedHeaders: [
         "Authorization",
@@ -32,7 +28,7 @@ app.use(cors_1.default({
 }));
 app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
-if (_config_1.config.PROD) {
+if (config_1.config.PROD) {
     app.use(compression_1.default());
 }
 // let stack: {

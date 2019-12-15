@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _config_1 = require("@config");
-const { CF } = _config_1.config;
+const config_1 = require("../../../config");
+const { CF } = config_1.config;
 exports.updateStack = (params) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`updating stack ${params.StackName} through cloud formation`);
     const response = yield CF.updateStack(params).promise();

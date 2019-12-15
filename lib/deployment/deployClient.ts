@@ -11,7 +11,7 @@ import {
 import { exec, getLocalGitBranch } from "../utils";
 import { getDomainName, getStackName } from "../strings";
 import { getAbsolutePathFromRootRelativePath } from "../fs";
-import { config } from "@config";
+import { config } from "../../config";
 import { clientTemplate } from "../../aws/client";
 import { getClientBuildCommand } from "../utils/getClientBuildCommand";
 

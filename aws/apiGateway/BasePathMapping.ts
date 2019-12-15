@@ -1,5 +1,5 @@
 import { ApiGateway, Fn } from "cloudform";
-import { config } from "@config";
+import { config } from "../../config";
 
 export const BasePathMapping = (branch: string) => {
     const basePathMapping = new ApiGateway.BasePathMapping({

@@ -9,8 +9,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const PATH = __importStar(require("path"));
 exports.getAbsolutePathFromRootRelativePath = (path) => {
-    const segments = Array.isArray(path)
-        ? path
-        : path.split("/").filter(segment => !!segment);
+    const segments = Array.isArray(path) ? path : path.split("/").filter(segment => !!segment);
     return PATH.resolve(__dirname, "..", "..", ...segments);
 };

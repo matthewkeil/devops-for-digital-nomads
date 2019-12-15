@@ -1,5 +1,5 @@
 import { default as CF, Fn, Refs } from "cloudform";
-import { pascalCaseDomainName, getAbsolutePathFromRootRelativePath } from "@lib";
+import { pascalCaseDomainName, getAbsolutePathFromRootRelativePath } from "../lib";
 
 import { DomainName } from "./apiGateway/DomainName";
 import { ServerRecordSet } from "./route53/ServerRecordSet";

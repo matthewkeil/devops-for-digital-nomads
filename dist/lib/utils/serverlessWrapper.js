@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const HttpStatusCode_1 = require("../interfaces/HttpStatusCode");
-const _config_1 = require("@config");
+const config_1 = require("../../config");
 exports.lambdaWrapper = handler => (event, callback) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const parameters = {};
@@ -47,7 +47,7 @@ exports.lambdaWrapper = handler => (event, callback) => __awaiter(void 0, void 0
                 "Access-Control-Allow-Origin": "*"
             },
             isBase64Encoded: false,
-            body: JSON.stringify(!_config_1.config.PROD ? err : { message: err.message })
+            body: JSON.stringify(!config_1.config.PROD ? err : { message: err.message })
         });
     }
 });

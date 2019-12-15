@@ -3,7 +3,7 @@
 // import fs from "fs";
 // import { exec, getLocalGitBranch } from "../utils";
 // import { getAbsolutePathFromRootRelativePath } from "../fs";
-// import { config } from "@config";
+// import { config } from "../../config";
 // import { getArtifactsBucketName } from "../strings";
 
 export const deployServer = async () => {

@@ -1,5 +1,5 @@
 import { CloudFront, Fn } from "cloudform";
-import { config } from "@config";
+import { config } from "../../config";
 /**
  *
  * Fn.Ref('OriginAccessIdentity') returns access identity, such as E15MNIMTCFKK4C.

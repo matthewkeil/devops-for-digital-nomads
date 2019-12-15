@@ -1,6 +1,6 @@
 import { APIGatewayEvent, Callback } from "aws-lambda";
 import { StatusCode } from "../interfaces/HttpStatusCode";
-import { config } from "@config";
+import { config } from "../../config";
 
 export const lambdaWrapper = handler => async (
     event: APIGatewayEvent,

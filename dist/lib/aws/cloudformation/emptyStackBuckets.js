@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const emptyBucket_1 = require("../s3/emptyBucket");
-const _config_1 = require("@config");
-const { CF } = _config_1.config;
+const config_1 = require("../../../config");
+const { CF } = config_1.config;
 exports.emptyStackBuckets = ({ StackName }) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`looking for s3 buckets to empty in stack ${StackName}`);
     const response = yield CF.listStackResources({ StackName }).promise();

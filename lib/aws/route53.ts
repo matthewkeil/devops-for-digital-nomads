@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { config } from "@config";
+import { config } from "../../config";
 
 const { CF } = config;
 const route53 = new AWS.Route53(config.AWS_SERVICE_CONFIG);

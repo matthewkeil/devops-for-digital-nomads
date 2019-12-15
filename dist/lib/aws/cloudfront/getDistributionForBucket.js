@@ -17,8 +17,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const AWS = __importStar(require("aws-sdk"));
-const _config_1 = require("@config");
-const cloudfront = new AWS.CloudFront(_config_1.config.AWS_SERVICE_CONFIG);
+const config_1 = require("../../../config");
+const cloudfront = new AWS.CloudFront(config_1.config.AWS_SERVICE_CONFIG);
 exports.getDistributionForBucket = ({ Bucket }) => __awaiter(void 0, void 0, void 0, function* () {
     const { DistributionList } = yield cloudfront.listDistributions().promise();
     if (!DistributionList.Items) {

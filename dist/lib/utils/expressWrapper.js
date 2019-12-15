@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _config_1 = require("@config");
+const config_1 = require("../../config");
 exports.nodeWrapper = handler => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield handler({
@@ -35,12 +35,10 @@ exports.nodeWrapper = handler => (req, res, next) => __awaiter(void 0, void 0, v
         }
     }
     catch (err) {
-        if (!_config_1.config.PROD) {
+        if (!config_1.config.PROD) {
             console.error(err);
         }
-        res.status(500).json(!_config_1.config.PROD
-            ? err
-            : { error: { message: "unexpected server error" } });
+        res.status(500).json(!config_1.config.PROD ? err : { error: { message: "unexpected server error" } });
         next(err);
     }
 });

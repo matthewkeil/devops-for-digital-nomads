@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const cloudform_1 = require("cloudform");
-const _config_1 = require("@config");
+const config_1 = require("../../config");
 /**
  *
  * Fn.Ref('OriginAccessIdentity') returns access identity, such as E15MNIMTCFKK4C.
@@ -15,7 +15,7 @@ exports.ClientOriginAccessIdentity = new cloudform_1.CloudFront.CloudFrontOrigin
             `origin access identity for `,
             cloudform_1.Fn.Ref("SubDomain"),
             ".",
-            _config_1.config.ROOT_DOMAIN
+            config_1.config.ROOT_DOMAIN
         ])
     }
 });

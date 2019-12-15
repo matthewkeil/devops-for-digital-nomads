@@ -17,9 +17,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const AWS = __importStar(require("aws-sdk"));
-const _config_1 = require("@config");
+const config_1 = require("../../../config");
 const getDistributionForBucket_1 = require("./getDistributionForBucket");
-const cloudfront = new AWS.CloudFront(_config_1.config.AWS_SERVICE_CONFIG);
+const cloudfront = new AWS.CloudFront(config_1.config.AWS_SERVICE_CONFIG);
 exports.createCacheInvalidation = ({ DistributionId, Bucket }) => __awaiter(void 0, void 0, void 0, function* () {
     const invalidate = (id) => cloudfront
         .createInvalidation({
@@ -33,9 +33,7 @@ exports.createCacheInvalidation = ({ DistributionId, Bucket }) => __awaiter(void
         }
     })
         .promise();
-    const id = DistributionId
-        ? DistributionId
-        : yield getDistributionForBucket_1.getDistributionForBucket({ Bucket });
+    const id = DistributionId ? DistributionId : yield getDistributionForBucket_1.getDistributionForBucket({ Bucket });
     if (!id) {
         throw new Error("must provide wither Bucekt with an assoicated distribution or DistributionID to create an invalidation");
     }

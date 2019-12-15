@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
-import { config } from "@config";
+import { config } from "../../config";
 const app = express();
 app.use(morgan("dev"));
 app.use(helmet());

@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _config_1 = require("@config");
-const { CF } = _config_1.config;
+const config_1 = require("../../../config");
+const { CF } = config_1.config;
 exports.getStackEvents = (params) => __awaiter(void 0, void 0, void 0, function* () {
     const response = yield CF.describeStackEvents(params).promise();
     let updateOrCreateNotReached = true;
@@ -25,8 +25,7 @@ exports.getStackEvents = (params) => __awaiter(void 0, void 0, void 0, function*
         if (!updateOrCreateNotReached)
             return false;
         if (ResourceType === "AWS::CloudFormation::Stack" &&
-            (ResourceStatus === "UPDATE_IN_PROGRESS" ||
-                ResourceStatus === "CREATE_IN_PROGRESS")) {
+            (ResourceStatus === "UPDATE_IN_PROGRESS" || ResourceStatus === "CREATE_IN_PROGRESS")) {
             updateOrCreateNotReached = false;
         }
         return true;

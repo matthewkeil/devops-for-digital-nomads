@@ -18,7 +18,7 @@ const aws_1 = require("../aws");
 const utils_1 = require("../utils");
 const strings_1 = require("../strings");
 const fs_2 = require("../fs");
-const _config_1 = require("@config");
+const config_1 = require("../../config");
 const client_1 = require("../../aws/client");
 const getClientBuildCommand_1 = require("../utils/getClientBuildCommand");
 exports.deployClient = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -30,13 +30,12 @@ exports.deployClient = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     const clientDistLocation = "client/dist";
     let buildPromise = Promise.resolve();
-    if (rebuild ||
-        !fs_1.default.existsSync(fs_2.getAbsolutePathFromRootRelativePath(clientDistLocation))) {
+    if (rebuild || !fs_1.default.existsSync(fs_2.getAbsolutePathFromRootRelativePath(clientDistLocation))) {
         const command = getClientBuildCommand_1.getClientBuildCommand();
         console.log(`rebuilding client repo using "${command}"`);
         buildPromise = utils_1.exec(`cd client && export NODE_ENV=production && ${command}`);
     }
-    const domain = _config_1.config.ROOT_DOMAIN;
+    const domain = config_1.config.ROOT_DOMAIN;
     // make sure bucket exists, if not build stack with bucket and routing
     const Bucket = strings_1.getDomainName({
         branch,

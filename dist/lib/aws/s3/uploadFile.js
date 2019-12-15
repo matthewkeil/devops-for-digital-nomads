@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const mime_types_1 = require("mime-types");
-const _config_1 = require("@config");
-const { S3 } = _config_1.config;
+const config_1 = require("../../../config");
+const { S3 } = config_1.config;
 exports.uploadFile = ({ Bucket, Key, path }) => __awaiter(void 0, void 0, void 0, function* () {
     const contentType = mime_types_1.lookup(Key);
     const response = yield S3.upload({

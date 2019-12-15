@@ -1,4 +1,4 @@
-import { config } from "@config";
+import { config } from "../../../config";
 import { emptyStackBuckets } from "./emptyStackBuckets";
 
 const { CF } = config;

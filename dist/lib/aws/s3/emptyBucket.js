@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _config_1 = require("@config");
-const { S3 } = _config_1.config;
+const config_1 = require("../../../config");
+const { S3 } = config_1.config;
 exports.emptyBucket = ({ Bucket }) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`attempting to empty ${Bucket}`);
     const { Contents } = yield S3.listObjects({

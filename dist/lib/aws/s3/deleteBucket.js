@@ -9,9 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const _config_1 = require("@config");
+const config_1 = require("../../../config");
 const emptyBucket_1 = require("./emptyBucket");
-const { S3 } = _config_1.config;
+const { S3 } = config_1.config;
 exports.deleteBucket = ({ Bucket }) => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`deleting bucket named ${Bucket}`);
     yield emptyBucket_1.emptyBucket({ Bucket });
