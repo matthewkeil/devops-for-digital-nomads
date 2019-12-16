@@ -8,7 +8,7 @@ import { deployServer } from "../lib/deployment/deployServer";
  * IIFE for async and we're off!!
  *
  */
-(async () => {
+const main = async () => {
     const findStack = process.argv.find(arg => {
         const ARG = arg.toLowerCase();
 
@@ -33,4 +33,10 @@ import { deployServer } from "../lib/deployment/deployServer";
             const message = `${stack} is not a valid stack name`;
             throw new Error(message);
     }
-})();
+};
+
+if (require.main === module) {
+    console.log(
+        `>>> cwd: ${process.cwd}\n>>> mainModule: ${process.mainModule}\n>>> execPath: ${process.execPath}`
+    );
+}
